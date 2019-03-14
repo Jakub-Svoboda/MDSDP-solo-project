@@ -7,9 +7,9 @@ Ideas
 
 ## Samples
 - [Link to declared example](https://github.com/Zenthurion/MDSD-Project/blob/master/DSL%20Proposals/login.gui)
-- [link to inline example](https://github.com/Zenthurion/MDSD-Project/blob/master/DSL%20Proposals/login-inline.gui)
+- [Link to inline example](https://github.com/Zenthurion/MDSD-Project/blob/master/DSL%20Proposals/login-inline.gui)
 - The idea is that these compose something like the below image  
-![login](DSL%20Proposals/img/login.png)
+![Login](DSL%20Proposals/img/login.png)
 
 ## Features
 
