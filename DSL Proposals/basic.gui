@@ -1,0 +1,13 @@
+templates: // Complex / composite objects
+    
+
+components:
+    button yes:
+        
+    button no:
+
+    button cancel:
+
+        
+
+layout main:
