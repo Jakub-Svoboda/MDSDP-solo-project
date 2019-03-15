@@ -1,0 +1,44 @@
+layout main:
+    vertical:
+        label header
+        list Post
+
+template Post:
+    layout:
+        vertical:
+            label title
+            horizontal:
+                label author
+                label timestamp
+            GUI content
+            vertical:
+                horizontal:
+                    field comment
+                    button submit
+                list comments:
+                    CommentBox commentbox
+        
+    controls:
+        comment:
+            validate=not-empty
+        submit:
+            require=content
+        
+
+
+template CommentBox {
+    layout:
+        vertical:
+            label author
+            text-area comment
+            label timestamp
+            horizontal:
+                button like
+                button report
+    controls:
+        author:
+            size 14px
+            color blue
+        timestamp:
+
+}
