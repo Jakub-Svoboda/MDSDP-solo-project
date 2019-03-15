@@ -1,7 +1,11 @@
-layout main:
-    vertical:
-        label header
-        list Post
+main: 
+    layout:
+        vertical:
+            label header
+            list Post
+    controls:
+        header:
+            text="MDSDBook"
 
 template Post:
     layout:
@@ -11,6 +15,10 @@ template Post:
                 label author
                 label timestamp
             GUI content
+            Horizontal:
+                button like
+                button share
+                button report
             vertical:
                 horizontal:
                     field comment
@@ -19,6 +27,15 @@ template Post:
                     CommentBox commentbox
         
     controls:
+        like:
+            size small
+            text "Like Post"
+        share:
+            size small
+            text "Share Post"
+        report:
+            size small
+            text "Report Comment"
         comment:
             validate=not-empty
         submit:
@@ -39,6 +56,11 @@ template CommentBox {
         author:
             size 14px
             color blue
-        timestamp:
+        like:
+            size small
+            text "Like Comment"
+        report:
+            size small
+            text "Report Comment"
 
 }
