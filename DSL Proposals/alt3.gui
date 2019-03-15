@@ -1,0 +1,39 @@
+widgets:
+  DEFAULT:
+    attributes:
+      id:string!
+      childs:List<widget> = []
+  bordered:
+    attributes: prefix=border
+     color:color-type = black
+     thickness:size-type = 2px
+    
+  button: bordered
+    attributes: prefix=btn
+        text:string = "Button placeholder"      
+  label:
+    attributes: prefix=lbl
+        text:string = "Label placeholder"
+  textfield: bordered
+    attributes: prafix=tf
+        text:string = ""
+        hint:string = "Textfield placeholder"
+   panel
+    attributes
+        size:Array<int,2>!
+        orientation:orientation = vertical
+types:
+  string - //some restriction regex maybe
+  color-type - //some restriction regex maybe
+  size-type - //some restriction regex maybe
+
+main = panel(
+    orientation = vertical,
+    childs:[                                 
+        label(lbl-text="Username", id="username-label"),  
+        label(lbl-hint="Username", id="username-textfield"), 
+        label(lbl-text="Password", id="password-label"),
+        label(lbl-hint="Password", id="password-textfield"),  
+        button(btn-text="Login", id="login-button")        
+    ]
+)
