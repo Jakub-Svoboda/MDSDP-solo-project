@@ -1,0 +1,29 @@
+layout {
+    [label username] [field email]
+    [label password] [field password]
+    [button login]
+    [space]
+    [button register]
+}
+
+config {
+    lbl:username
+        text=Username
+    lbl:password
+        text=password
+    field:email
+        validate=email
+        hint=name@domain.com
+    field:password  
+        validate=password-complex
+    btn:login
+        require=field:username && field:password
+        text=Login
+        size=Large
+        color=Green
+    btn:register
+        text=Register
+}
+
+
+

@@ -5,12 +5,12 @@ controls:
     button register:
         size: small
 
-layout main: // visualised in basic.html
+layout main:
     vertical:
-        form validate: // forms can have the optional validate flag
+        form validate: 
             label Username
-            email // allow custom validation rules using regex? each premade element has a default validation rule that can be overridden
+            email 
             label Password
             password 
-            btn:login submit // submit to indicate that it will complete the form. label=Login could be inferred from teh name of the button
+            btn:login submit
         btn:register

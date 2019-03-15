@@ -1,0 +1,9 @@
+layout {
+    label username [text=Username]
+    field email [validate=email hint=name@domain.com]
+    label password [text=Password]
+    field password [validate=password]
+    button login [require=field:email && field:password text=Login size=Large color=green]
+    space
+    button register [text=Register]
+}
