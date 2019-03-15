@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+        <title>Example</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+        <link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet" type="text/css">
+        <style>
+.task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
+</style>
+        <style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        
+        <script src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
+    </head>
+    <body>
+        <h1 id="example">Example</h1>
+<h2 id="introduction">Introduction</h2>
+<p>We've tried to create a DSL with focus on reducing the noise surrounding the definition of the layout. Therefore, we have separated declaration of the controls from their definitions. We've also intended for support of template controls which can be reused, and adaptors for lists where the target language can be used to instantiate further instances of templates or the basic controls. We provide one simple and one more complex example to illustrate this below.</p>
+<p>We would like our DSL to be language agnostic, and be capable of building to a variety of target languages. However, our initial aim is to make it work for HTML/CSS.</p>
+<h3 id="layout">layout:</h3>
+<p>This part of the code focuses entirely on what is locate where. It contains a series of nested layouts (horizontal | vertical | form). Each layout contains a series of controls. These are declared with type and name only at this stage (although we have some ideas for making optional inline definitions for flexibility of use).</p>
+<p>The intent is to make certain aspects of the layout implied, e.g. a layout would always be vertical unless otherwise is specified.</p>
+<h3 id="controls">controls:</h3>
+<p>This part defines each control with a limited set of attributes. As each control should be declared in the layout section, we just refer to them by their identifiers here.</p>
+<p>Certain controls (such as input fields) can have some validation rules assigned and other controls (such as buttons) can have a requirement set which would refer to other controls with assigned validation rules.</p>
+<h3 id="template">template:</h3>
+<p>Templates is our implementation of reusable code, where a composite element can be composed, given a name, and consequently referred to another place in the code. This is exemplified in the last example below.</p>
+<h2 id="simple-login-form">Simple: Login Form</h2>
+<pre><code>layout:
+    vertical:
+        form validate: 
+            label Username
+            field email 
+            label Password
+            field password 
+            button login submit
+        button register
+controls:
+    email:
+        validate email
+        text &quot;Username&quot;
+    password:
+        validate password
+        text &quot;Password&quot;
+    login:
+        size large
+        text &quot;Login&quot;
+        require email &amp;&amp; password
+    register:
+        size small
+        text &quot;Register&quot;
+</code></pre>
+<h2 id="complex-social">Complex: Social</h2>
+<pre><code>main: 
+    layout:
+        vertical:
+            label header
+            list Post
+    controls:
+        header:
+            text=&quot;MDSDBook&quot;
+
+template Post:
+    layout:
+        vertical:
+            label title
+            horizontal:
+                label author
+                label timestamp
+            GUI content
+            Horizontal:
+                button like
+                button share
+                button report
+            vertical:
+                horizontal:
+                    field comment
+                    button submit
+                list comments:
+                    CommentBox commentbox
+    controls:
+        like:
+            size small
+            text &quot;Like Post&quot;
+        share:
+            size small
+            text &quot;Share Post&quot;
+        report:
+            size small
+            text &quot;Report Comment&quot;
+        comment:
+            validate=not-empty
+        submit:
+            require=content
+
+template CommentBox {
+    layout:
+        vertical:
+            label author
+            text-area comment
+            label timestamp
+            horizontal:
+                button like
+                button report
+    controls:
+        author:
+            size 14px
+            color blue
+        like:
+            size small
+            text &quot;Like Comment&quot;
+        report:
+            size small
+            text &quot;Report Comment&quot;
+</code></pre>
+
+    </body>
+    </html>
