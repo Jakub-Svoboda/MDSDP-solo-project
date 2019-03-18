@@ -21,8 +21,6 @@
 
 # Candidates to ignore
 .metadata/
-src-gen/
-xtend-gen/
 bin/
 .launch/
 .settings/
