@@ -1,0 +1,57 @@
+GUI ::= Main Template*
+Main ::= 'main' Unit
+Unit ::= OPEN Layout Specifications? CLOSE
+Entity ::= Layout | Element | [Template]
+
+Template ::= 'template' ID OPEN Unit CLOSE
+
+Layout ::= Vertical | Horizontal
+Vertical ::= ('vertical' | 'vert') ID? OPEN Entity* CLOSE
+Horizontal ::= ('horizontal' | 'hori') ID? OPEN Entity* CLOSE
+
+Element ::= (Label | Button | Field | Checkbox | TextArea | List | more-to-come) ID?
+Label ::= ('lbl' | 'label') 
+Button ::= ('btn' | 'button')
+Field ::= ('fld' | 'field')
+Checkbox ::= ('chk' | 'checkbox')
+TextArea ::= ('text-area')
+List ::= ('list') [Entity]
+
+Specifications ::= 'elements' OPEN Specification* CLOSE
+Specification ::= VerticalSpec | HorizontalSpec | LabelSpec | ButtonSpec | InputSpec | CheckboxSpec
+VerticalSpec ::= [Vertical] OPEN VerticalSpecOptions* CLOSE
+HorizontalSpec ::= [Horizontal] OPEN HorizontalSpecOptions* CLOSE
+LabelSpec ::= [Label] OPEN LabelSpecOptions* CLOSE
+ButtonSpec ::= [Button] OPEN ButtonSpecOptions* CLOSE
+FieldSpec ::= [Field] OPEN FieldSpecOptions* CLOSE
+CheckboxSpec ::= [Checkbox] OPEN CheckboxSpecOptions* CLOSE
+
+VerticalSpecOptions ::= (DimOption | BackgroundColor | etc...)*
+HorizontalSpecOptions ::= (DimOption | BackgroundColor | etc...)*
+LabelSpecOptions ::= (TextColor | SizeOption | etc...)*
+ButtonSpecOptions ::= (TextColor | BackgroundColor | SizeOption | Require | etc...)*
+FieldSpecOptions ::= (TextColor | BackgroundColor | TextValidate | Require | etc...)*
+CheckboxSpecOptions ::= (BackgroundColor | CheckboxValidate | Require | etc...)*
+
+DimOption ::= ('dim' | 'dimensions') (INT'x'INT | ('w'| 'width') INT  ('h'| 'height') INT)
+SizeOption ::= 'size' ('x-small' | 'small' | 'medium' | 'large' | 'x-large')
+TextColor ::= 'text-color' (HEX | [ColorVariable])
+BackgroundColor ::= 'bg-color' (HEX | [ColorVariable])
+ColorVariable ::= 'var' 'color' HEX
+
+TextValidate ::= RegexValidate | RegexRef | PresetTextValidate
+RegexValidate ::= 'regex' '=' STRING
+RegexRef ::= [RegexVariable]
+RegexVariable ::= 'var' 'regex' '=' STRING
+PresetTextValidate ::= 'val-password' | 'val-email' | 'val-not-empty' | etc...
+CheckboxValidate ::= 'is-checked' | 'is-unchecked'
+
+RequireElements ::= 'require' Require
+Require ::= RequrieOr
+RequireOr ::= RequireAnd ('||' RequireAnd)*
+RequireAnd ::= RequireBase ('&&' RequireBase)*
+RequireBase ::= '(' Require ')' | ('!' | 'NOT') RequireBase | [Element]
+
+
+OPEN ::= '{' // Will investiage whitespace
+CLOSE ::= '}'

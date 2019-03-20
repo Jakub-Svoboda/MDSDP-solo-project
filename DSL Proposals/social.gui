@@ -14,7 +14,7 @@ template Post:
             horizontal:
                 label author
                 label timestamp
-            GUI content
+            text-area content
             Horizontal:
                 button like
                 button share
