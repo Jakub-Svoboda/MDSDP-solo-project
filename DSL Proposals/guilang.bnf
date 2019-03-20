@@ -28,10 +28,8 @@ CheckboxSpec ::= [Checkbox] OPEN CheckboxSpecOptions* CLOSE
 
 VerticalSpecOptions ::= (DimOption | BackgroundColor | etc...)*
 HorizontalSpecOptions ::= (DimOption | BackgroundColor | etc...)*
-LabelSpecOptions ::= (TextColor | SizeOption | etc...)*
-LabelSpecRequirements ::= (STRING)
-ButtonSpecOptions ::= (TextColor | BackgroundColor | SizeOption | Require | etc...)*
-ButtonSpecRequirements ::= (STRING)
+LabelSpecOptions ::= (TextValue | TextColor | SizeOption | etc...)*
+ButtonSpecOptions ::= (TextValue | TextColor | BackgroundColor | SizeOption | Require | etc...)*
 FieldSpecOptions ::= (TextColor | BackgroundColor | TextValidate | Require | etc...)*
 CheckboxSpecOptions ::= (BackgroundColor | CheckboxValidate | Require | etc...)*
 
@@ -40,6 +38,7 @@ SizeOption ::= 'size' ('x-small' | 'small' | 'medium' | 'large' | 'x-large')
 TextColor ::= 'text-color' (HEX | [ColorVariable])
 BackgroundColor ::= 'bg-color' (HEX | [ColorVariable])
 ColorVariable ::= 'var' 'color' HEX
+TextValue ::= text STRING
 
 TextValidate ::= RegexValidate | RegexRef | PresetTextValidate
 RegexValidate ::= 'regex' '=' STRING

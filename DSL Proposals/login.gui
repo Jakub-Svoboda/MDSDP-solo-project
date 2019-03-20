@@ -1,23 +1,29 @@
-layout:
-    vertical:
-        form validate: 
-            label Username
-            field email 
-            label Password
-            field password 
-            button login submit
+main {
+    vertical {
+        label lblUsername
+        field email 
+        label lblPassword
+        field password 
+        button login
         button register
-controls:
-    email:
-        validate email
-        text "Username"
-    password:
-        validate password
-        text "Password"
-    login:
-        size large
-        text "Login"
-        require email && password
-    register:
-        size small
-        text "Register"
+    }
+    controls {
+        email {
+            validate email
+            text "Username"
+        }
+        password {
+            validate password
+            text "Password"
+        }
+        login {
+            size large
+            text "Login"
+            require email && password
+        }
+        register {
+            size small
+            text "Register"
+        }
+    }
+}
