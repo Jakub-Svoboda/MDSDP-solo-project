@@ -21,15 +21,17 @@ Specifications ::= 'elements' OPEN Specification* CLOSE
 Specification ::= VerticalSpec | HorizontalSpec | LabelSpec | ButtonSpec | InputSpec | CheckboxSpec
 VerticalSpec ::= [Vertical] OPEN VerticalSpecOptions* CLOSE
 HorizontalSpec ::= [Horizontal] OPEN HorizontalSpecOptions* CLOSE
-LabelSpec ::= [Label] OPEN LabelSpecOptions* CLOSE
-ButtonSpec ::= [Button] OPEN ButtonSpecOptions* CLOSE
+LabelSpec ::= [Label] OPEN LabelSpecRequirements LabelSpecOptions* CLOSE
+ButtonSpec ::= [Button] OPEN ButtonSpecRequirements ButtonSpecOptions* CLOSE
 FieldSpec ::= [Field] OPEN FieldSpecOptions* CLOSE
 CheckboxSpec ::= [Checkbox] OPEN CheckboxSpecOptions* CLOSE
 
 VerticalSpecOptions ::= (DimOption | BackgroundColor | etc...)*
 HorizontalSpecOptions ::= (DimOption | BackgroundColor | etc...)*
 LabelSpecOptions ::= (TextColor | SizeOption | etc...)*
+LabelSpecRequirements ::= (STRING)
 ButtonSpecOptions ::= (TextColor | BackgroundColor | SizeOption | Require | etc...)*
+ButtonSpecRequirements ::= (STRING)
 FieldSpecOptions ::= (TextColor | BackgroundColor | TextValidate | Require | etc...)*
 CheckboxSpecOptions ::= (BackgroundColor | CheckboxValidate | Require | etc...)*
 
