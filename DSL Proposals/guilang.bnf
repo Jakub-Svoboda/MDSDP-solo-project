@@ -6,10 +6,10 @@ Entity ::= Layout | Element | [Template]
 Template ::= 'template' ID OPEN Unit CLOSE
 
 Layout ::= Vertical | Horizontal
-Vertical ::= ('vertical' | 'vert') ID? OPEN Entity* CLOSE
-Horizontal ::= ('horizontal' | 'hori') ID? OPEN Entity* CLOSE
+Vertical ::= ('vertical' | 'vert') ID OPEN Entity* CLOSE
+Horizontal ::= ('horizontal' | 'hori') ID OPEN Entity* CLOSE
 
-Element ::= (Label | Button | Field | Checkbox | TextArea | List | more-to-come) ID?
+Element ::= (Label | Button | Field | Checkbox | TextArea | List | more-to-come) ID
 Label ::= ('lbl' | 'label') 
 Button ::= ('btn' | 'button')
 Field ::= ('fld' | 'field')
