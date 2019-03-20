@@ -2,8 +2,278 @@ grammar dk.sdu.mdsd.guilang.Guilang with org.eclipse.xtext.common.Terminals
 
 generate guilang "http://www.sdu.dk/mdsd/guilang/Guilang"
 
-Model:
-	greetings+=Greeting*;
+// ##################################################################
+// ## TOP LEVEL
+// ##################################################################
+GUI:
+	main=Main
+	//(templates+=Template)*
+;
+
+Main returns Unit:
+	'main' Unit
+;
+
+Unit:
+	OPEN
+		layout=Layout
+		specifications=Specifications?
+	CLOSE
+;
+
+Entity:
+	LayoutType | Element
+;
+
+// ##################################################################
+// ## Layouts
+// ##################################################################
+
+Layout:
+	{Layout} 'layout' name=ID? OPEN
+		entities+=Entity*
+	CLOSE
+;
+
+LayoutType:
+	Layout | Vertical | Horizontal
+;
+
+Vertical:
+	{Vertical} ('vertical' | 'vert') name=ID? OPEN
+		entities+=Entity*
+	CLOSE
+;
+
+Horizontal:
+	{Horizontal} ('horizontal' | 'hori') name=ID? OPEN
+		entities+=Entity*
+	CLOSE
+;
+
+// ##################################################################
+// ## Elements
+// ##################################################################
+
+Element:
+	(Label | Button | Input | Checkbox)
+;
+
+Label:
+	{Label} LABEL_TYPE  name=ID?
+;
+
+Button:
+	{Button} BUTTON_TYPE  name=ID?
+;
+
+Input:
+	{Input} INPUT_TYPE  name=ID?
+;
+
+Checkbox:
+	{Checkbox} CHECKBOX_TYPE  name=ID?
+;
+
+// ##################################################################
+// ## Specifications
+// ##################################################################
+
+Specifications:
+	{Specifications} 'elements' OPEN
+		specifications+=Specification*
+	CLOSE
+;
+
+Specification:
+	type=(LayoutSpec | VerticalSpec | HorizontalSpec | LabelSpec | ButtonSpec | InputSpec | CheckboxSpec)
+;
+
+// ##############################################
+// ## Layout Specifications
+// ##############################################
+
+LayoutSpec:
+	ref=[Layout] OPEN
+		'layout-spec'
+	CLOSE
+;
+VerticalSpec:
+	ref=[Vertical] OPEN
+		'vertical-spec'
+	CLOSE	
+;
+HorizontalSpec:
+	ref=[Horizontal] OPEN
+		'horizontal-spec'
+	CLOSE	
+;
+
+// ##############################################
+// ## Label Specifications 
+// ##############################################
+
+LabelSpec:
+	ref=[Label] OPEN
+		'label-spec'
+	CLOSE		
+;
+
+// ##############################################
+// ## Button Specifications 
+// ##############################################
+
+ButtonSpec:
+	ref=[Button] OPEN
+		'button-spec'
+		options+=ButtonSpecOptions*
+	CLOSE		
+;
+
+ButtonSpecOptions:
+	(RequireElements)
+;
+
+// ##############################################
+// ## Input Field Specifications 
+// ##############################################
+
+InputSpec:
+	ref=[Input] OPEN
+		'input-spec'
+		options+=InputSpecOptions*
+	CLOSE		
+;
+
+InputSpecOptions:
+	(TextValidate | RequireElements)
+;
+
+// ##############################################
+// ## Checkbox Specifications 
+// ##############################################
+
+CheckboxSpec:
+	ref=[Checkbox] OPEN
+		'checkbox-spec'
+	CLOSE		
+;
+
+// ##############################################
+// ## General Specifications 
+// ##############################################
+
+SizeSpec:
+	'size' (width=INT'x'height=INT | ('w'| 'width') width=INT  ('h'| 'height') height=INT)
+;
+
+// ##############################################
+// ## Validations 
+// ##############################################
+
+// ####################################
+// ## Rules
+// ####################################
+
+Validate:
+	{Validate} validations+=(TextValidate | CheckboxValidate)*
+;
+
+TextValidate:
+	'validate' validation=(RegexValidate | RegexVariableRef | PresetTextValidate)
+;
+
+RegexValidate:
+	'regex' '=' value=STRING
+;
+
+RegexVariableValidate:
+	'validation' '=' value=STRING
+;
+
+RegexVariableRef:
+	ref=[RegexVariableValidate]
+;
+
+/* enum */ PresetTextValidate:
+	value='val-password' | 
+	value='val-email'
+	// etc...
+;
+
+CheckboxValidate:
+	value=('is-checked' | 'is-unchecked')
+;
+
+// ####################################
+// ## Requires
+// ####################################
+
+RequireElements:
+	'require' elements=Require
+;
+
+Require:
+	RequireOr
+;
+
+RequireOr returns Require:
+	RequireAnd ({Or.left=current} ('||') right=RequireAnd)*
+;
+
+RequireAnd returns Require:
+	RequireBase ({And.left=current} ('&&') right=RequireBase)*
+;
+
+RequireBase returns Require:
+	'(' exp=Require ')' | 
+	{Not} ('!' | 'NOT') exp=RequireBase | 
+	{ElementRef} ref=[Element]
+;
+
+/*
+RequireEquality returns Require:
 	
-Greeting:
-	'Hello' name=ID '!';
+;
+
+RequireComparison returns Require:
+	
+;*/
+
+// ##################################################################
+// ## Templates
+// ##################################################################
+
+//Template:
+//	
+//;
+
+// ##################################################################
+// ## Terminals
+// ##################################################################
+
+terminal OPEN:
+	'{'
+;
+
+terminal CLOSE:
+	'}'
+;
+
+terminal BUTTON_TYPE:
+	'btn' | 'button'
+;
+
+terminal INPUT_TYPE:
+	'field' | 'input'
+;
+
+
+terminal LABEL_TYPE:
+	'lbl' | 'label'
+;
+
+
+terminal CHECKBOX_TYPE:
+	'chk' | 'checkbox'
+;

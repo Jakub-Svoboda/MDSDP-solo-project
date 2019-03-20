@@ -1,11 +1,114 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="guilang" nsURI="http://www.sdu.dk/mdsd/guilang/Guilang" nsPrefix="guilang">
-  <eClassifiers xsi:type="ecore:EClass" name="Model">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="greetings" upperBound="-1"
-        eType="#//Greeting" containment="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="GUI">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="main" eType="#//Unit" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Greeting">
+  <eClassifiers xsi:type="ecore:EClass" name="Unit">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="layout" eType="#//Layout"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="specifications" eType="#//Specifications"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Entity">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Layout" eSuperTypes="#//LayoutType"/>
+  <eClassifiers xsi:type="ecore:EClass" name="LayoutType" eSuperTypes="#//Entity">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="entities" upperBound="-1"
+        eType="#//Entity" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Vertical" eSuperTypes="#//LayoutType"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Horizontal" eSuperTypes="#//LayoutType"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Element" eSuperTypes="#//Entity"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Label" eSuperTypes="#//Element"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Button" eSuperTypes="#//Element"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Input" eSuperTypes="#//Element"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Checkbox" eSuperTypes="#//Element"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Specifications">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="specifications" upperBound="-1"
+        eType="#//Specification" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Specification">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="LayoutSpec">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ref" eType="#//Layout"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="VerticalSpec">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ref" eType="#//Vertical"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="HorizontalSpec">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ref" eType="#//Horizontal"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="LabelSpec">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ref" eType="#//Label"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ButtonSpec">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ref" eType="#//Button"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="options" upperBound="-1"
+        eType="#//ButtonSpecOptions" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ButtonSpecOptions"/>
+  <eClassifiers xsi:type="ecore:EClass" name="InputSpec">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ref" eType="#//Input"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="options" upperBound="-1"
+        eType="#//InputSpecOptions" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="InputSpecOptions"/>
+  <eClassifiers xsi:type="ecore:EClass" name="CheckboxSpec">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ref" eType="#//Checkbox"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SizeSpec">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="width" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="height" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Validate">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="validations" upperBound="-1"
+        eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TextValidate" eSuperTypes="#//InputSpecOptions">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="validation" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RegexValidate">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RegexVariableValidate">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RegexVariableRef">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ref" eType="#//RegexVariableValidate"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PresetTextValidate">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CheckboxValidate">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RequireElements" eSuperTypes="#//ButtonSpecOptions #//InputSpecOptions">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="elements" eType="#//Require"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Require">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="exp" eType="#//Require"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Or" eSuperTypes="#//Require">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="left" eType="#//Require"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="right" eType="#//Require"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="And" eSuperTypes="#//Require">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="left" eType="#//Require"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="right" eType="#//Require"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Not" eSuperTypes="#//Require"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ElementRef" eSuperTypes="#//Require">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ref" eType="#//Element"/>
   </eClassifiers>
 </ecore:EPackage>

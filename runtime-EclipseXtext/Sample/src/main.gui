@@ -1,1 +1,26 @@
-Hello World!
+main {
+	layout {
+		vertical {
+			label username
+			input emailField
+			label passwordField
+			input passwordField
+			button login
+			button register
+		}
+	}
+	elements {
+		emailField {
+			input-spec
+			validate val-email
+		}	
+		passwordField {
+			input-spec
+			validate val-password
+		}
+		login {
+			button-spec
+			require emailField && passwordField
+		}
+	}
+}
