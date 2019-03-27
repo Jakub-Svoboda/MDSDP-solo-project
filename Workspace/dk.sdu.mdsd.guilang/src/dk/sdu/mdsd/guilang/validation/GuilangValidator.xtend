@@ -3,6 +3,10 @@
  */
 package dk.sdu.mdsd.guilang.validation
 
+import dk.sdu.mdsd.guilang.guilang.Entity
+import dk.sdu.mdsd.guilang.guilang.GuilangPackage
+import dk.sdu.mdsd.guilang.guilang.Template
+import org.eclipse.xtext.validation.Check
 
 /**
  * This class contains custom validation rules. 
@@ -11,7 +15,7 @@ package dk.sdu.mdsd.guilang.validation
  */
 class GuilangValidator extends AbstractGuilangValidator {
 	
-//	public static val INVALID_NAME = 'invalidName'
+	public static val INVALID_NAME = 'invalidName'
 //
 //	@Check
 //	def checkGreetingStartsWithCapital(Greeting greeting) {
@@ -22,4 +26,17 @@ class GuilangValidator extends AbstractGuilangValidator {
 //		}
 //	}
 	
+	@Check
+	def checkTemplateNamesStartWithCapital(Template template) {
+		if(!Character.isUpperCase(template.name.charAt(0))) {
+			warning("Template names should start with a capital letter", GuilangPackage.Literals.TEMPLATE__NAME, INVALID_NAME)
+		}
+	}
+	
+	@Check
+	def checkEntityNamesStartWithLowerCase(Entity entity) {
+		if(entity.name !== null && Character.isUpperCase(entity.name.charAt(0))) {
+			warning("Entity names should start with a capital letter", GuilangPackage.Literals.ENTITY__NAME, INVALID_NAME)
+		}
+	}
 }
