@@ -6,8 +6,9 @@ generate guilang "http://www.sdu.dk/mdsd/guilang/Guilang"
 // ## TOP LEVEL
 // ##################################################################
 GUI:
+	vars+=Variable*
 	main=Main
-	//(templates+=Template)*
+	templates+=Template*
 ;
 
 Main returns Unit:
@@ -22,7 +23,7 @@ Unit:
 ;
 
 Entity:
-	LayoutType | Element
+	Layout | Element
 ;
 
 // ##################################################################
@@ -30,49 +31,23 @@ Entity:
 // ##################################################################
 
 Layout:
-	{Layout} 'layout' name=ID? OPEN
-		entities+=Entity*
-	CLOSE
-;
-
-LayoutType:
-	Layout | Vertical | Horizontal
-;
-
-Vertical:
-	{Vertical} ('vertical' | 'vert') name=ID? OPEN
-		entities+=Entity*
-	CLOSE
-;
-
-Horizontal:
-	{Horizontal} ('horizontal' | 'hori') name=ID? OPEN
-		entities+=Entity*
-	CLOSE
+	(
+		{Vertical} ('vertical' | 'vert') | 
+		{Horizontal} ('horizontal' | 'hori')
+	) name=ID? OPEN entities+=Entity* CLOSE
 ;
 
 // ##################################################################
 // ## Elements
 // ##################################################################
 
-Element:
-	(Label | Button | Input | Checkbox)
-;
-
-Label:
-	{Label} LABEL_TYPE  name=ID?
-;
-
-Button:
-	{Button} BUTTON_TYPE  name=ID?
-;
-
-Input:
-	{Input} INPUT_TYPE  name=ID?
-;
-
-Checkbox:
-	{Checkbox} CHECKBOX_TYPE  name=ID?
+Element: (
+		{Label} LABEL_TYPE |
+		{Button} BUTTON_TYPE | 
+		{Input} INPUT_TYPE | 
+		{Checkbox} CHECKBOX_TYPE |
+		{TemplateInstance} ref=[Template]
+	) name=ID
 ;
 
 // ##################################################################
@@ -86,132 +61,40 @@ Specifications:
 ;
 
 Specification:
-	type=(LayoutSpec | VerticalSpec | HorizontalSpec | LabelSpec | ButtonSpec | InputSpec | CheckboxSpec)
+	ref=[Element] OPEN options+=Option* CLOSE
 ;
 
-// ##############################################
-// ## Layout Specifications
-// ##############################################
-
-LayoutSpec:
-	ref=[Layout] OPEN
-		'layout-spec'
-	CLOSE
-;
-VerticalSpec:
-	ref=[Vertical] OPEN
-		'vertical-spec'
-	CLOSE	
-;
-HorizontalSpec:
-	ref=[Horizontal] OPEN
-		'horizontal-spec'
-	CLOSE	
+Option:
+	{DimOption} ('dim' | 'dimensions') (width=INT'x'height=INT | ('w'| 'width') width=INT  ('h'| 'height') height=INT) |
+	{SizeOption} 'size' STRING |
+	{TextColor} 'text-color' (STRING | var=[ColorVariable]) |
+    {BackgroundColor} 'bg-color' (STRING | var=[ColorVariable]) |
+    {TextValue} 'text' STRING |
+    {TextValidate} 'validate' (value=RegexValidate | var=[RegexVariable] | preset=PresetTextValidate) |
+    {CheckboxValidate} ('is-checked' | 'is-unchecked') |
+    {RequireElements} 'require' req=Require
 ;
 
-// ##############################################
-// ## Label Specifications 
-// ##############################################
-
-LabelSpec:
-	ref=[Label] OPEN
-		'label-spec'
-	CLOSE		
-;
-
-// ##############################################
-// ## Button Specifications 
-// ##############################################
-
-ButtonSpec:
-	ref=[Button] OPEN
-		'button-spec'
-		options+=ButtonSpecOptions*
-	CLOSE		
-;
-
-ButtonSpecOptions:
-	(RequireElements)
-;
-
-// ##############################################
-// ## Input Field Specifications 
-// ##############################################
-
-InputSpec:
-	ref=[Input] OPEN
-		'input-spec'
-		options+=InputSpecOptions*
-	CLOSE		
-;
-
-InputSpecOptions:
-	(TextValidate | RequireElements)
-;
-
-// ##############################################
-// ## Checkbox Specifications 
-// ##############################################
-
-CheckboxSpec:
-	ref=[Checkbox] OPEN
-		'checkbox-spec'
-	CLOSE		
-;
-
-// ##############################################
-// ## General Specifications 
-// ##############################################
-
-SizeSpec:
-	'size' (width=INT'x'height=INT | ('w'| 'width') width=INT  ('h'| 'height') height=INT)
-;
-
-// ##############################################
-// ## Validations 
-// ##############################################
-
-// ####################################
-// ## Rules
-// ####################################
-
-Validate:
-	{Validate} validations+=(TextValidate | CheckboxValidate)*
-;
-
-TextValidate:
-	'validate' validation=(RegexValidate | RegexVariableRef | PresetTextValidate)
+Variable:
+	'var' (
+        {ColorVariable} 'color' '=' STRING |
+        {RegexVariable} 'regex' '=' STRING
+    )
 ;
 
 RegexValidate:
-	'regex' '=' value=STRING
+	 'regex' '=' STRING
 ;
 
-RegexVariableValidate:
-	'validation' '=' value=STRING
-;
-
-RegexVariableRef:
-	ref=[RegexVariableValidate]
-;
-
-/* enum */ PresetTextValidate:
+PresetTextValidate:
 	value='val-password' | 
 	value='val-email'
 	// etc...
 ;
 
-CheckboxValidate:
-	value=('is-checked' | 'is-unchecked')
-;
-
 // ####################################
 // ## Requires
 // ####################################
-
-RequireElements:
-	'require' elements=Require
-;
 
 Require:
 	RequireOr
@@ -244,9 +127,9 @@ RequireComparison returns Require:
 // ## Templates
 // ##################################################################
 
-//Template:
-//	
-//;
+Template:
+	unit=Unit
+;
 
 // ##################################################################
 // ## Terminals

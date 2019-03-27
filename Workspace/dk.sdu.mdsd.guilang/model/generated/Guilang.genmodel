@@ -16,79 +16,54 @@
     <genClasses ecoreClass="Guilang.ecore#//Entity">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Guilang.ecore#//Entity/name"/>
     </genClasses>
-    <genClasses ecoreClass="Guilang.ecore#//Layout"/>
-    <genClasses ecoreClass="Guilang.ecore#//LayoutType">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Guilang.ecore#//LayoutType/entities"/>
+    <genClasses ecoreClass="Guilang.ecore#//Layout">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Guilang.ecore#//Layout/entities"/>
     </genClasses>
-    <genClasses ecoreClass="Guilang.ecore#//Vertical"/>
-    <genClasses ecoreClass="Guilang.ecore#//Horizontal"/>
     <genClasses ecoreClass="Guilang.ecore#//Element"/>
-    <genClasses ecoreClass="Guilang.ecore#//Label"/>
-    <genClasses ecoreClass="Guilang.ecore#//Button"/>
-    <genClasses ecoreClass="Guilang.ecore#//Input"/>
-    <genClasses ecoreClass="Guilang.ecore#//Checkbox"/>
     <genClasses ecoreClass="Guilang.ecore#//Specifications">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Guilang.ecore#//Specifications/specifications"/>
     </genClasses>
     <genClasses ecoreClass="Guilang.ecore#//Specification">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Guilang.ecore#//Specification/type"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Guilang.ecore#//Specification/ref"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Guilang.ecore#//Specification/options"/>
     </genClasses>
-    <genClasses ecoreClass="Guilang.ecore#//LayoutSpec">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Guilang.ecore#//LayoutSpec/ref"/>
-    </genClasses>
-    <genClasses ecoreClass="Guilang.ecore#//VerticalSpec">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Guilang.ecore#//VerticalSpec/ref"/>
-    </genClasses>
-    <genClasses ecoreClass="Guilang.ecore#//HorizontalSpec">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Guilang.ecore#//HorizontalSpec/ref"/>
-    </genClasses>
-    <genClasses ecoreClass="Guilang.ecore#//LabelSpec">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Guilang.ecore#//LabelSpec/ref"/>
-    </genClasses>
-    <genClasses ecoreClass="Guilang.ecore#//ButtonSpec">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Guilang.ecore#//ButtonSpec/ref"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Guilang.ecore#//ButtonSpec/options"/>
-    </genClasses>
-    <genClasses ecoreClass="Guilang.ecore#//ButtonSpecOptions"/>
-    <genClasses ecoreClass="Guilang.ecore#//InputSpec">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Guilang.ecore#//InputSpec/ref"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Guilang.ecore#//InputSpec/options"/>
-    </genClasses>
-    <genClasses ecoreClass="Guilang.ecore#//InputSpecOptions"/>
-    <genClasses ecoreClass="Guilang.ecore#//CheckboxSpec">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Guilang.ecore#//CheckboxSpec/ref"/>
-    </genClasses>
-    <genClasses ecoreClass="Guilang.ecore#//SizeSpec">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Guilang.ecore#//SizeSpec/width"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Guilang.ecore#//SizeSpec/height"/>
-    </genClasses>
-    <genClasses ecoreClass="Guilang.ecore#//Validate">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Guilang.ecore#//Validate/validations"/>
-    </genClasses>
-    <genClasses ecoreClass="Guilang.ecore#//TextValidate">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Guilang.ecore#//TextValidate/validation"/>
-    </genClasses>
-    <genClasses ecoreClass="Guilang.ecore#//RegexValidate">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Guilang.ecore#//RegexValidate/value"/>
-    </genClasses>
-    <genClasses ecoreClass="Guilang.ecore#//RegexVariableValidate">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Guilang.ecore#//RegexVariableValidate/value"/>
-    </genClasses>
-    <genClasses ecoreClass="Guilang.ecore#//RegexVariableRef">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Guilang.ecore#//RegexVariableRef/ref"/>
-    </genClasses>
+    <genClasses ecoreClass="Guilang.ecore#//Option"/>
+    <genClasses ecoreClass="Guilang.ecore#//Variable"/>
     <genClasses ecoreClass="Guilang.ecore#//PresetTextValidate">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Guilang.ecore#//PresetTextValidate/value"/>
-    </genClasses>
-    <genClasses ecoreClass="Guilang.ecore#//CheckboxValidate">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Guilang.ecore#//CheckboxValidate/value"/>
-    </genClasses>
-    <genClasses ecoreClass="Guilang.ecore#//RequireElements">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Guilang.ecore#//RequireElements/elements"/>
     </genClasses>
     <genClasses ecoreClass="Guilang.ecore#//Require">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Guilang.ecore#//Require/exp"/>
     </genClasses>
+    <genClasses ecoreClass="Guilang.ecore#//Vertical"/>
+    <genClasses ecoreClass="Guilang.ecore#//Horizontal"/>
+    <genClasses ecoreClass="Guilang.ecore#//Label"/>
+    <genClasses ecoreClass="Guilang.ecore#//Button"/>
+    <genClasses ecoreClass="Guilang.ecore#//Input"/>
+    <genClasses ecoreClass="Guilang.ecore#//Checkbox"/>
+    <genClasses ecoreClass="Guilang.ecore#//DimOption">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Guilang.ecore#//DimOption/width"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Guilang.ecore#//DimOption/height"/>
+    </genClasses>
+    <genClasses ecoreClass="Guilang.ecore#//SizeOption"/>
+    <genClasses ecoreClass="Guilang.ecore#//TextColor">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Guilang.ecore#//TextColor/var"/>
+    </genClasses>
+    <genClasses ecoreClass="Guilang.ecore#//BackgroundColor">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Guilang.ecore#//BackgroundColor/var"/>
+    </genClasses>
+    <genClasses ecoreClass="Guilang.ecore#//TextValue"/>
+    <genClasses ecoreClass="Guilang.ecore#//TextValidate">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Guilang.ecore#//TextValidate/value"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Guilang.ecore#//TextValidate/var"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Guilang.ecore#//TextValidate/preset"/>
+    </genClasses>
+    <genClasses ecoreClass="Guilang.ecore#//CheckboxValidate"/>
+    <genClasses ecoreClass="Guilang.ecore#//RequireElements">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Guilang.ecore#//RequireElements/req"/>
+    </genClasses>
+    <genClasses ecoreClass="Guilang.ecore#//ColorVariable"/>
+    <genClasses ecoreClass="Guilang.ecore#//RegexVariable"/>
     <genClasses ecoreClass="Guilang.ecore#//Or">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Guilang.ecore#//Or/left"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Guilang.ecore#//Or/right"/>
