@@ -2,9 +2,6 @@ grammar dk.sdu.mdsd.guilang.Guilang with org.eclipse.xtext.common.Terminals
 
 generate guilang "http://www.sdu.dk/mdsd/guilang/Guilang"
 
-// ##################################################################
-// ## TOP LEVEL
-// ##################################################################
 GUI:
 	vars+=Variable*
 	main=Main
@@ -22,13 +19,13 @@ Unit:
 	CLOSE
 ;
 
+Template:
+	'template' name=ID unit=Unit
+;
+
 Entity:
 	Layout | Element
 ;
-
-// ##################################################################
-// ## Layouts
-// ##################################################################
 
 Layout:
 	(
@@ -37,22 +34,16 @@ Layout:
 	) name=ID? OPEN entities+=Entity* CLOSE
 ;
 
-// ##################################################################
-// ## Elements
-// ##################################################################
-
 Element: (
-		{Label} LABEL_TYPE |
-		{Button} BUTTON_TYPE | 
-		{Input} INPUT_TYPE | 
-		{Checkbox} CHECKBOX_TYPE |
-		{TemplateInstance} ref=[Template]
-	) name=ID
+		{Label} ('lbl' | 'label') |
+		{Button} ('btn' | 'button') | 
+		{Input} ('field' | 'input') | 
+		{Checkbox} ('chk' | 'checkbox') |
+		{TextArea} ('text-area') |
+		{TemplateInstance} 'new' ref=[Template] |
+		{List} 'list' ref=[Template]
+	) name=ID ('[' inlineOptions+=Option (';' inlineOptions+=Option)* ']')?
 ;
-
-// ##################################################################
-// ## Specifications
-// ##################################################################
 
 Specifications:
 	{Specifications} 'elements' OPEN
@@ -66,35 +57,31 @@ Specification:
 
 Option:
 	{DimOption} ('dim' | 'dimensions') (width=INT'x'height=INT | ('w'| 'width') width=INT  ('h'| 'height') height=INT) |
-	{SizeOption} 'size' STRING |
-	{TextColor} 'text-color' (STRING | var=[ColorVariable]) |
-    {BackgroundColor} 'bg-color' (STRING | var=[ColorVariable]) |
+	{SizeOption} 'size' value=STRING |
+    {BackgroundColor} 'bg-color' (color=STRING | var=[ColorVariable]) |
+	{TextColor} 'color' (color=STRING | var=[ColorVariable]) |
+	{TextSize} 'text-size' value=INT unit=('px' | '%') |
     {TextValue} 'text' STRING |
     {TextValidate} 'validate' (value=RegexValidate | var=[RegexVariable] | preset=PresetTextValidate) |
-    {CheckboxValidate} ('is-checked' | 'is-unchecked') |
+    {CheckboxValidate} (value='is-checked' | value='is-unchecked') |
     {RequireElements} 'require' req=Require
 ;
 
 Variable:
-	'var' (
-        {ColorVariable} 'color' '=' STRING |
-        {RegexVariable} 'regex' '=' STRING
-    )
+	{ColorVariable} 'color' name=ID '=' value=STRING |
+    {RegexVariable} 'regex' name=ID '=' value=STRING
 ;
 
 RegexValidate:
 	 'regex' '=' STRING
 ;
 
-PresetTextValidate:
-	value='val-password' | 
-	value='val-email'
+enum PresetTextValidate:
+	password |
+	email |
+	not_empty
 	// etc...
 ;
-
-// ####################################
-// ## Requires
-// ####################################
 
 Require:
 	RequireOr
@@ -123,13 +110,6 @@ RequireComparison returns Require:
 	
 ;*/
 
-// ##################################################################
-// ## Templates
-// ##################################################################
-
-Template:
-	unit=Unit
-;
 
 // ##################################################################
 // ## Terminals
@@ -141,22 +121,4 @@ terminal OPEN:
 
 terminal CLOSE:
 	'}'
-;
-
-terminal BUTTON_TYPE:
-	'btn' | 'button'
-;
-
-terminal INPUT_TYPE:
-	'field' | 'input'
-;
-
-
-terminal LABEL_TYPE:
-	'lbl' | 'label'
-;
-
-
-terminal CHECKBOX_TYPE:
-	'chk' | 'checkbox'
 ;

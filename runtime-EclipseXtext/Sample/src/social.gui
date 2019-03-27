@@ -1,0 +1,81 @@
+main {
+    vertical {
+        label header
+        list Post posts
+    }
+    elements {
+        header {
+            text "MDSDBook" 
+        }
+    } 
+} 
+
+template Post {
+    vertical {
+        label title
+        horizontal {
+            label author
+            label timestamp
+        }
+        text-area content 
+        horizontal {
+            button like
+            button share
+            button report
+        }
+        vertical {
+            horizontal {
+                field comment
+                button submit
+            } 
+            list CommentBox comments 
+        }
+    }
+    elements {
+        like {
+            size "small"
+            text "Like Post"
+        }
+        share {
+            size "small"
+            text "Share Post"
+        }
+        report {
+            size "small"
+            text "Report Comment"
+        }
+        comment {
+            validate not_empty
+        }
+        submit {
+            require content
+        }
+    }
+}   
+
+
+template CommentBox {
+    vertical {
+        label author
+        text-area comment
+        label timestamp
+        horizontal {
+            button like
+            button report
+        }
+    }
+    elements {
+        author {
+            text-size 14px 
+            color "blue" 
+        }
+        like {
+            size "small"
+            text "Like Comment"
+        }
+        report {
+            size "small"
+            text "Report Comment"
+        }
+    }
+}

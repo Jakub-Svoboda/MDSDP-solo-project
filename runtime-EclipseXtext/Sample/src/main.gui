@@ -1,6 +1,7 @@
+regex email_validation = ""
 main {
 	vertical {
-		label username
+		label username [text "Username"]
 		input emailField
 		label passwordField
 		input passwordField
@@ -9,10 +10,10 @@ main {
 	}
 	elements {
 		emailField {
-			validate val-email
+			validate val_email
 		}	
 		passwordField {
-			validate val-password
+			validate val_password
 		}
 		login {
 			require emailField && passwordField
