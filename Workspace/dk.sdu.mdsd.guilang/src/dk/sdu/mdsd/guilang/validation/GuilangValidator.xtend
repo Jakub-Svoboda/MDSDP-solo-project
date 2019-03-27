@@ -36,7 +36,7 @@ class GuilangValidator extends AbstractGuilangValidator {
 	@Check
 	def checkEntityNamesStartWithLowerCase(Entity entity) {
 		if(entity.name !== null && Character.isUpperCase(entity.name.charAt(0))) {
-			warning("Entity names should start with a capital letter", GuilangPackage.Literals.ENTITY__NAME, INVALID_NAME)
+			warning("Entity names should start with a lowercase letter", GuilangPackage.Literals.ENTITY__NAME, INVALID_NAME)
 		}
 	}
 }
