@@ -3,10 +3,38 @@
  */
 package dk.sdu.mdsd.guilang.ui.contentassist
 
+import org.eclipse.emf.ecore.EObject
+import org.eclipse.xtext.Group
+import org.eclipse.xtext.RuleCall
+import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext
+import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor
+import org.eclipse.xtext.Keyword
 
 /**
  * See https://www.eclipse.org/Xtext/documentation/304_ide_concepts.html#content-assist
  * on how to customize the content assistant.
  */
 class GuilangProposalProvider extends AbstractGuilangProposalProvider {
+	
+	override complete_Element(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		super.complete_Element(model, ruleCall, context, acceptor)
+		
+	}
+	
+	override complete_Specification(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		super.complete_Specification(model, ruleCall, context, acceptor)
+	}
+	
+	override complete_Option(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		super.complete_Option(model, ruleCall, context, acceptor)
+	}
+	
+	def getAppropriateOptions(Group group, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		if(group == null) {
+			return null
+		}
+		var proposal = group.elements.filter(Keyword).map[value].join(" ") + " "
+		acceptor.accept(createCompletionProposal(proposal, proposal, null, context))
+	}
+	
 }
