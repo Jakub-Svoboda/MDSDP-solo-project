@@ -3,38 +3,69 @@
  */
 package dk.sdu.mdsd.guilang.ui.contentassist
 
+import com.google.inject.Inject
+import dk.sdu.mdsd.guilang.guilang.impl.ButtonImpl
+import dk.sdu.mdsd.guilang.guilang.impl.CheckboxImpl
+import dk.sdu.mdsd.guilang.guilang.impl.InputImpl
+import dk.sdu.mdsd.guilang.guilang.impl.LabelImpl
+import dk.sdu.mdsd.guilang.guilang.impl.ListImpl
+import dk.sdu.mdsd.guilang.guilang.impl.SpecificationImpl
+import dk.sdu.mdsd.guilang.guilang.impl.TemplateInstanceImpl
+import dk.sdu.mdsd.guilang.guilang.impl.TextAreaImpl
+import dk.sdu.mdsd.guilang.services.GuilangGrammarAccess
 import org.eclipse.emf.ecore.EObject
-import org.eclipse.xtext.Group
+import org.eclipse.xtext.Keyword
 import org.eclipse.xtext.RuleCall
 import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext
 import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor
-import org.eclipse.xtext.Keyword
 
 /**
  * See https://www.eclipse.org/Xtext/documentation/304_ide_concepts.html#content-assist
  * on how to customize the content assistant.
+ * 
+ * Useful: https://blogs.itemis.com/en/xtext-hint-content-assist-for-multiple-consecutive-keywords
  */
 class GuilangProposalProvider extends AbstractGuilangProposalProvider {
 	
-	override complete_Element(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
-		super.complete_Element(model, ruleCall, context, acceptor)
-		
-	}
+	//@Inject extension GuilangGrammarAccess
 	
-	override complete_Specification(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
-		super.complete_Specification(model, ruleCall, context, acceptor)
-	}
+	String[] buttonOptions = #["size", "bg-color", "text-size", "text", 'require']
+	String[] labelOptions = #["size", "color", "text-size", "text"]
 	
-	override complete_Option(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
-		super.complete_Option(model, ruleCall, context, acceptor)
-	}
+//	override complete_Element(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+//		super.complete_Element(model, ruleCall, context, acceptor)
+//		
+//	}
 	
-	def getAppropriateOptions(Group group, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
-		if(group == null) {
-			return null
+//	override complete_Specification(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+//		super.complete_Specification(model, ruleCall, context, acceptor)
+//	}
+	
+	// Filter out default suggestions
+	override completeKeyword(Keyword keyword, ContentAssistContext contentAssistContext, ICompletionProposalAcceptor acceptor) {
+		switch(contentAssistContext.currentModel) {
+			SpecificationImpl: return
+			default: super.completeKeyword(keyword, contentAssistContext, acceptor)
 		}
-		var proposal = group.elements.filter(Keyword).map[value].join(" ") + " "
-		acceptor.accept(createCompletionProposal(proposal, proposal, null, context))
 	}
 	
+	// Add custom suggestions (complete_TheThingYouWant)
+	override complete_Option(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		if(!(model instanceof SpecificationImpl)) return;
+		var spec = model as SpecificationImpl
+		var String[] options = #[]
+		switch(spec.ref) {
+			ButtonImpl: options = buttonOptions
+			LabelImpl: options = labelOptions
+			InputImpl: println()
+			CheckboxImpl: println()
+			ListImpl: println()
+			TemplateInstanceImpl: println()
+			TextAreaImpl: println()
+		}
+		
+		for(o : options) {
+			acceptor.accept(createCompletionProposal(o, context))
+		}
+	}
 }

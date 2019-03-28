@@ -2,8 +2,9 @@ main {
     vertical {
         label header
         list Post posts
+        
     }
-    elements {
+    elements { 
         header {
             text "MDSDBook" 
         }
@@ -32,9 +33,14 @@ template Post {
         }
     }
     elements {
-        like {
+    	 
+        like { 
+        	
             size "small"
             text "Like Post"
+        }
+        title {
+       	 
         }
         share {
             size "small"
