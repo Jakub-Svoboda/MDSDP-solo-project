@@ -3,19 +3,27 @@
  */
 package dk.sdu.mdsd.guilang.validation
 
+import dk.sdu.mdsd.guilang.guilang.Button
 import dk.sdu.mdsd.guilang.guilang.Entity
 import dk.sdu.mdsd.guilang.guilang.GuilangPackage
+import dk.sdu.mdsd.guilang.guilang.Label
+import dk.sdu.mdsd.guilang.guilang.Specification
 import dk.sdu.mdsd.guilang.guilang.Template
 import org.eclipse.xtext.validation.Check
 
 /**
  * This class contains custom validation rules. 
- *
+ * 
  * See https://www.eclipse.org/Xtext/documentation/303_runtime_concepts.html#validation
  */
 class GuilangValidator extends AbstractGuilangValidator {
-	
+
 	public static val INVALID_NAME = 'invalidName'
+	public static val INVALID_OPTION = 'invalidOption'
+
+	String[] buttonOptions = #["size", "bg-color", "text-size", "text", 'require']
+	String[] labelOptions = #["size", "color", "text-size", "text"]
+
 //
 //	@Check
 //	def checkGreetingStartsWithCapital(Greeting greeting) {
@@ -25,18 +33,44 @@ class GuilangValidator extends AbstractGuilangValidator {
 //					INVALID_NAME)
 //		}
 //	}
-	
 	@Check
-	def checkTemplateNamesStartWithCapital(Template template) {
-		if(!Character.isUpperCase(template.name.charAt(0))) {
-			warning("Template names should start with a capital letter", GuilangPackage.Literals.TEMPLATE__NAME, INVALID_NAME)
+	def checkValidOptions(Specification spec) {
+		var correctOptions = #[]
+		switch (spec.ref) {
+			Button: correctOptions = buttonOptions
+			Label: correctOptions = labelOptions
+		}
+		
+		var int index = 0
+		for (o : spec.options) {
+			var flag = false;
+			for (correct : correctOptions) {
+				if(o.key.equals(correct)) {
+					flag = true;
+				}
+			}	
+			if(!flag) {
+				var type = spec.ref.class.canonicalName
+				type = type.substring(type.lastIndexOf('.') + 1, type.length - 4)
+				error('''"«o.key»" is not a valid key for an entity of type «type»''', GuilangPackage.Literals.SPECIFICATION__OPTIONS, index, INVALID_OPTION)
+			}
+			index++
 		}
 	}
-	
+
+	@Check
+	def checkTemplateNamesStartWithCapital(Template template) {
+		if (!Character.isUpperCase(template.name.charAt(0))) {
+			warning("Template names should start with a capital letter", GuilangPackage.Literals.TEMPLATE__NAME,
+				INVALID_NAME)
+		}
+	}
+
 	@Check
 	def checkEntityNamesStartWithLowerCase(Entity entity) {
-		if(entity.name !== null && Character.isUpperCase(entity.name.charAt(0))) {
-			warning("Entity names should start with a lowercase letter", GuilangPackage.Literals.ENTITY__NAME, INVALID_NAME)
+		if (entity.name !== null && Character.isUpperCase(entity.name.charAt(0))) {
+			warning("Entity names should start with a lowercase letter", GuilangPackage.Literals.ENTITY__NAME,
+				INVALID_NAME)
 		}
 	}
 }

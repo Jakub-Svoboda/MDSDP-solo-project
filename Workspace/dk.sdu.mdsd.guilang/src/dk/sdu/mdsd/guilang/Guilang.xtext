@@ -29,19 +29,19 @@ Entity:
 
 Layout:
 	(
-		{Vertical} ('vertical' | 'vert') | 
-		{Horizontal} ('horizontal' | 'hori')
+		{Vertical} key=('vertical' | 'vert') | 
+		{Horizontal} key=('horizontal' | 'hori')
 	) name=ID? OPEN entities+=Entity* CLOSE
 ;
 
 Element: (
-		{Label} ('lbl' | 'label') |
-		{Button} ('btn' | 'button') | 
-		{Input} ('field' | 'input') | 
-		{Checkbox} ('chk' | 'checkbox') |
-		{TextArea} ('text-area') |
-		{TemplateInstance} 'new' ref=[Template] |
-		{List} 'list' ref=[Template]
+		{Label} key=('lbl' | 'label') |
+		{Button} key=('btn' | 'button') | 
+		{Input} key=('field' | 'input') | 
+		{Checkbox} key=('chk' | 'checkbox') |
+		{TextArea} key=('text-area') |
+		{TemplateInstance} key='new' ref=[Template] |
+		{List} key='list' ref=[Template]
 	) name=ID ('[' inlineOptions+=Option (';' inlineOptions+=Option)* ']')?
 ;
 
@@ -56,15 +56,15 @@ Specification:
 ;
 
 Option:
-	{DimOption} ('dim' | 'dimensions') (width=INT'x'height=INT | ('w'| 'width') width=INT  ('h'| 'height') height=INT) |
-	{SizeOption} 'size' value=STRING |
-    {BackgroundColor} 'bg-color' (color=STRING | var=[ColorVariable]) |
-	{TextColor} 'color' (color=STRING | var=[ColorVariable]) |
-	{TextSize} 'text-size' value=INT unit=('px' | '%') |
-    {TextValue} 'text' STRING |
-    {TextValidate} 'validate' (value=RegexValidate | var=[RegexVariable] | preset=PresetTextValidate) |
-    {CheckboxValidate} (value='is-checked' | value='is-unchecked') |
-    {RequireElements} 'require' req=Require
+	{DimOption} (key='dim' | key='dimensions') (width=INT'x'height=INT | ('w'| 'width') width=INT  ('h'| 'height') height=INT) |
+	{SizeOption} key='size' value=STRING |
+    {BackgroundColor} key='bg-color' (color=STRING | var=[ColorVariable]) |
+	{TextColor} key='color' (color=STRING | var=[ColorVariable]) |
+	{TextSize} key='text-size' value=INT unit=('px' | '%') |
+    {TextValue} key='text' STRING |
+    {TextValidate} key='validate' (value=RegexValidate | var=[RegexVariable] | preset=PresetTextValidate) |
+    {CheckboxValidate} key='validate' (value='is-checked' | value='is-unchecked') |
+    {RequireElements} key='require' req=Require
 ;
 
 Variable:
