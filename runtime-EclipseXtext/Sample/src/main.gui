@@ -8,16 +8,17 @@ main {
 		button login
 		button register
 	}
-	elements {
+	elements {  
 		emailField {
 			
 			validate email_validation 
 		}	
 		passwordField {
-			//validate password
+			//validate password 
 		}
 		login {
 			size "large"
+			text "Login"
 			bg-color "" 
 			//validate email_validation
 			require emailField && passwordField

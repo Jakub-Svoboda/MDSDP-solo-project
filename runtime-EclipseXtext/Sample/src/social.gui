@@ -2,14 +2,13 @@ main {
     vertical {
         label header
         list Post posts
-        
-    }
+    } 
     elements { 
         header {
             text "MDSDBook"
         }
     } 
-} 
+}  
 
 template Post { 
     vertical {
@@ -33,14 +32,12 @@ template Post {
         }
     }
     elements {
-    	 
-        like { 
-        	
+        like {
             size "small"
             text "Like Post"
         }
         title {
-       	 	
+       	 	 
         }
         share {
             size "small"
@@ -72,7 +69,7 @@ template CommentBox {
     }
     elements {
         author {
-            text-size 14px 
+            text-size 14px  
             text-color"blue" 
         }
         like {

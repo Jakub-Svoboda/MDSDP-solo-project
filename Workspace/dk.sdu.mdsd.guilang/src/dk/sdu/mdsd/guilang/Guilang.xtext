@@ -61,7 +61,7 @@ Option:
     {BackgroundColor} key='bg-color' (color=STRING | var=[ColorVariable]) |
 	{TextColor} key='text-color' (color=STRING | var=[ColorVariable]) |
 	{TextSize} key='text-size' value=INT unit=('px' | '%') |
-    {TextValue} key='text' STRING |
+    {TextValue} key='text' value=STRING |
     {TextValidate} key='validate' (value=RegexValidate | var=[RegexVariable] | preset=PresetTextValidate) |
     {CheckboxValidate} key='validate' (value='is-checked' | value='is-unchecked') |
     {RequireElements} key='require' req=Require

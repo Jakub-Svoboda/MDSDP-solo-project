@@ -3,15 +3,8 @@
  */
 package dk.sdu.mdsd.guilang.ui.contentassist
 
-import dk.sdu.mdsd.guilang.guilang.impl.ButtonImpl
-import dk.sdu.mdsd.guilang.guilang.impl.CheckboxImpl
-import dk.sdu.mdsd.guilang.guilang.impl.InputImpl
-import dk.sdu.mdsd.guilang.guilang.impl.LabelImpl
-import dk.sdu.mdsd.guilang.guilang.impl.ListImpl
+import dk.sdu.mdsd.guilang.AvailableSpecifications
 import dk.sdu.mdsd.guilang.guilang.impl.SpecificationImpl
-import dk.sdu.mdsd.guilang.guilang.impl.TemplateInstanceImpl
-import dk.sdu.mdsd.guilang.guilang.impl.TextAreaImpl
-import dk.sdu.mdsd.guilang.validation.AvailableSpecifications
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtext.Keyword
 import org.eclipse.xtext.RuleCall

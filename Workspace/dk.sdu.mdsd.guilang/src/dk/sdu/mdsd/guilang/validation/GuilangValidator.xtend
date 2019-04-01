@@ -3,10 +3,9 @@
  */
 package dk.sdu.mdsd.guilang.validation
 
-import dk.sdu.mdsd.guilang.guilang.Button
+import dk.sdu.mdsd.guilang.AvailableSpecifications
 import dk.sdu.mdsd.guilang.guilang.Entity
 import dk.sdu.mdsd.guilang.guilang.GuilangPackage
-import dk.sdu.mdsd.guilang.guilang.Label
 import dk.sdu.mdsd.guilang.guilang.Specification
 import dk.sdu.mdsd.guilang.guilang.Template
 import org.eclipse.xtext.validation.Check

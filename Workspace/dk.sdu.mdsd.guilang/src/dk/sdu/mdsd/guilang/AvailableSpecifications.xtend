@@ -1,4 +1,4 @@
-package dk.sdu.mdsd.guilang.validation
+package dk.sdu.mdsd.guilang
 
 import dk.sdu.mdsd.guilang.guilang.Button
 import dk.sdu.mdsd.guilang.guilang.Checkbox

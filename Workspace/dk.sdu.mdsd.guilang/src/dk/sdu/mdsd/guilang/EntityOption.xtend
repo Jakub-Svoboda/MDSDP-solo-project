@@ -1,4 +1,4 @@
-package dk.sdu.mdsd.guilang.validation
+package dk.sdu.mdsd.guilang
 
 class EntityOption {
 	String name
