@@ -6,12 +6,12 @@ main {
     }
     elements { 
         header {
-            text "MDSDBook" 
+            text "MDSDBook"
         }
     } 
 } 
 
-template Post {
+template Post { 
     vertical {
         label title
         horizontal {
@@ -40,7 +40,7 @@ template Post {
             text "Like Post"
         }
         title {
-       	 
+       	 	
         }
         share {
             size "small"
@@ -73,7 +73,7 @@ template CommentBox {
     elements {
         author {
             text-size 14px 
-            color "blue" 
+            text-color"blue" 
         }
         like {
             size "small"

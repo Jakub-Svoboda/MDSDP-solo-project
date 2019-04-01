@@ -21,9 +21,6 @@ class GuilangValidator extends AbstractGuilangValidator {
 	public static val INVALID_NAME = 'invalidName'
 	public static val INVALID_OPTION = 'invalidOption'
 
-	String[] buttonOptions = #["size", "bg-color", "text-size", "text", 'require']
-	String[] labelOptions = #["size", "color", "text-size", "text"]
-
 //
 //	@Check
 //	def checkGreetingStartsWithCapital(Greeting greeting) {
@@ -35,17 +32,13 @@ class GuilangValidator extends AbstractGuilangValidator {
 //	}
 	@Check
 	def checkValidOptions(Specification spec) {
-		var correctOptions = #[]
-		switch (spec.ref) {
-			Button: correctOptions = buttonOptions
-			Label: correctOptions = labelOptions
-		}
+		var correctOptions = AvailableSpecifications.instance.getSpecifications(spec.ref.class)
 		
 		var int index = 0
 		for (o : spec.options) {
 			var flag = false;
-			for (correct : correctOptions) {
-				if(o.key.equals(correct)) {
+			for (key : correctOptions.keys) {
+				if(o.key.equals(key)) {
 					flag = true;
 				}
 			}	
@@ -56,7 +49,7 @@ class GuilangValidator extends AbstractGuilangValidator {
 			}
 			index++
 		}
-	}
+	} 
 
 	@Check
 	def checkTemplateNamesStartWithCapital(Template template) {

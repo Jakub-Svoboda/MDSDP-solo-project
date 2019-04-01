@@ -3,7 +3,6 @@
  */
 package dk.sdu.mdsd.guilang.ui.contentassist
 
-import com.google.inject.Inject
 import dk.sdu.mdsd.guilang.guilang.impl.ButtonImpl
 import dk.sdu.mdsd.guilang.guilang.impl.CheckboxImpl
 import dk.sdu.mdsd.guilang.guilang.impl.InputImpl
@@ -12,7 +11,7 @@ import dk.sdu.mdsd.guilang.guilang.impl.ListImpl
 import dk.sdu.mdsd.guilang.guilang.impl.SpecificationImpl
 import dk.sdu.mdsd.guilang.guilang.impl.TemplateInstanceImpl
 import dk.sdu.mdsd.guilang.guilang.impl.TextAreaImpl
-import dk.sdu.mdsd.guilang.services.GuilangGrammarAccess
+import dk.sdu.mdsd.guilang.validation.AvailableSpecifications
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtext.Keyword
 import org.eclipse.xtext.RuleCall
@@ -28,9 +27,6 @@ import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor
 class GuilangProposalProvider extends AbstractGuilangProposalProvider {
 	
 	//@Inject extension GuilangGrammarAccess
-	
-	String[] buttonOptions = #["size", "bg-color", "text-size", "text", 'require']
-	String[] labelOptions = #["size", "color", "text-size", "text"]
 	
 //	override complete_Element(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
 //		super.complete_Element(model, ruleCall, context, acceptor)
@@ -53,16 +49,8 @@ class GuilangProposalProvider extends AbstractGuilangProposalProvider {
 	override complete_Option(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
 		if(!(model instanceof SpecificationImpl)) return;
 		var spec = model as SpecificationImpl
-		var String[] options = #[]
-		switch(spec.ref) {
-			ButtonImpl: options = buttonOptions
-			LabelImpl: options = labelOptions
-			InputImpl: println()
-			CheckboxImpl: println()
-			ListImpl: println()
-			TemplateInstanceImpl: println()
-			TextAreaImpl: println()
-		}
+		println(spec.ref.class)
+		var String[] options = AvailableSpecifications.instance.getSpecifications(spec.ref.class).keys
 		
 		for(o : options) {
 			acceptor.accept(createCompletionProposal(o, context))
