@@ -3,20 +3,15 @@
  */
 package dk.sdu.mdsd.guilang.generator
 
-import dk.sdu.mdsd.guilang.guilang.Button
-import dk.sdu.mdsd.guilang.guilang.Checkbox
+import dk.sdu.mdsd.guilang.generator.html.HTMLGenerator
 import dk.sdu.mdsd.guilang.guilang.Entity
 import dk.sdu.mdsd.guilang.guilang.GUI
-import dk.sdu.mdsd.guilang.guilang.Horizontal
-import dk.sdu.mdsd.guilang.guilang.Input
-import dk.sdu.mdsd.guilang.guilang.Label
-import dk.sdu.mdsd.guilang.guilang.Layout
-import dk.sdu.mdsd.guilang.guilang.List
-import dk.sdu.mdsd.guilang.guilang.TemplateInstance
-import dk.sdu.mdsd.guilang.guilang.TextArea
+import dk.sdu.mdsd.guilang.guilang.Option
 import dk.sdu.mdsd.guilang.guilang.TextValue
-import dk.sdu.mdsd.guilang.guilang.Vertical
-import dk.sdu.mdsd.guilang.guilang.impl.TextValueImpl
+import dk.sdu.mdsd.guilang.guilang.impl.GUIImpl
+import java.util.HashMap
+import java.util.List
+import java.util.Map
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.AbstractGenerator
 import org.eclipse.xtext.generator.IFileSystemAccess2
@@ -29,143 +24,58 @@ import org.eclipse.xtext.generator.IGeneratorContext
  */
 class GuilangGenerator extends AbstractGenerator {
 
-	var GUI gui
+	protected Resource resource
+	protected IFileSystemAccess2 fsa
+	protected IGeneratorContext context
+
+	protected GUI gui
+	protected Map<String, List<Option>> entityOptions
+	protected String title
 
 	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
-		gui = resource.allContents.filter(GUI).next
-		var title = getTitle(resource)
-		fsa.generateFile(title + '.html', generateHTML(gui, title))
+		initialise(resource, fsa, context)
+		
+		var ILanguageGenerator generator = new HTMLGenerator(resource, fsa, context)
+		
+		generator.generate()
 	}
 	
-	def getTitle(Resource resource) {
+	def initialise(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
+		this.resource = resource
+		this.fsa = fsa
+		this.context = context
+		
+		gui = resource.allContents.filter(GUIImpl).next
+		populateEntityOptions()
+		title = getFileName(resource)
+	}
+	
+	def populateEntityOptions() {
+		entityOptions = new HashMap
+		for(spec : gui.main.specifications.specifications) {
+			entityOptions.put(spec.ref.name, spec.options)
+		}
+	} 
+	
+	def <T extends Option> T getOption(Entity entity, Class<T> type) {
+		if(!entityOptions.containsKey(entity.name)) return null
+		for(o : entityOptions.get(entity.name)){
+			if(type.isInstance(o))
+				return o as T
+		}
+		return null
+	}
+	
+	def <T extends Option> boolean hasOption(Entity entity, Class<T> type) {
+		return getOption(entity, type) !== null
+	}
+	
+	def getFileName(Resource resource) {
 		var uri = resource.URI.toString
 		return uri.substring(uri.lastIndexOf('/') + 1, uri.length - 4) 
 	}
 	
-	def generateHTML(GUI gui, String title) {
-		'''
-		<html>
-			<head>
-			<title>«title.toFirstUpper» GUI</title>
-			«generateStyle(gui)»
-			</head>
-			<body>
-				«gui.main.layout.generate»
-			</body>
-		</html>
-		'''
-	}
-	
-	def generateLayout(Layout layout){
-		var String type
-		switch(layout) {
-			Vertical: type = "vertical"
-			Horizontal: type = "horizontal"
-		}
-		
-		'''
-		<div «IF layout.name !== null»id="«layout.name»" «ENDIF»class="«type»">
-			«FOR e : layout.entities»
-			«e.generate»
-			«ENDFOR»
-		</div>
-		'''
-	}
-	
-	def dispatch generate(Vertical entity) {
-		return generateLayout(entity)
-	}
-	
-	def dispatch generate(Horizontal entity) {
-		return generateLayout(entity)
-	}
-	
-	def dispatch generate(Button entity) {
-		'''
-		<button id="«entity.name»" class="button">«getTextValue(entity)»</button>
-		'''
-	}
-	
-	def dispatch generate(Label entity) {
-		'''
-		<div id="«entity.name»" class="label">«getTextValue(entity)»</div>
-		'''
-	}
-	
-	def dispatch generate(Input entity) {
-		'''
-		<input type="text" id="«entity.name»" class="input">«getTextValue(entity)»</div>
-		'''
-	}
-	
-	def dispatch generate(Checkbox entity) {
-		'''
-		<input type="checkbox"" id="«entity.name»" class="checkbox"></div>
-		'''
-	}
-	
-	def dispatch generate(TextArea entity) {
-		'''
-		<textarea cols="40" rows="5" id="«entity.name»" class="text-area">«getTextValue(entity)»</div>
-		'''
-	}
-	
-	def dispatch generate(TemplateInstance entity) {
-		'''
-		<div id="«entity.name»" class="template"></div>
-		'''
-	}
-	
-	def dispatch generate(List entity) {
-		'''
-		<div id="«entity.name»" class="list"></div>
-		'''
-	}
-	
 	def getTextValue(Entity entity) {
-		for(spec : gui.main.specifications.specifications) {
-			if(entity === spec.ref) {
-				for(o : spec.options) {
-					switch(o) {
-						TextValue: return o.value
-					}
-				}
-			}
-		}
-		return ""
-	}
-	
-	def generateStyle(GUI gui) {
-		'''
-		<style>
-		.vertical {
-			display: block;
-		}
-		.horizontal {
-			
-		}
-		.button {
-			
-		}
-		.label {
-			
-		}
-		.input {
-			
-		}
-		.checkbox {
-			
-		}
-		.text-area {
-			
-		}
-		.template {
-			
-		}
-		.list {
-			
-		}
-		</style>
-		'''
-	}
+		return getOption(entity, TextValue)?.value
+	}	
 }

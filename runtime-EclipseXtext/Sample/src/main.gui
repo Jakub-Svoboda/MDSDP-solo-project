@@ -1,16 +1,15 @@
 regex email_validation = ""  
-main {
+main { 
 	vertical { 
-		label username [text "Username"; dim 2 x 3]
+		label username 
 		input emailField 
 		label passwordField
 		input passwordField
 		button login
-		button register
+		button register  
 	}
 	elements {  
-		emailField {
-			
+		emailField {  
 			validate email_validation 
 		}	
 		passwordField {
