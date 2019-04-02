@@ -42,7 +42,7 @@ Element: (
 		{TextArea} key=('text-area') |
 		{TemplateInstance} key='new' ref=[Template] |
 		{List} key='list' ref=[Template]
-	) name=ID ('[' inlineOptions+=Option (';' inlineOptions+=Option)* ']')?
+	) name=ID// ('[' inlineOptions+=Option (';' inlineOptions+=Option)* ']')? // leaving inline options for now
 ;
 
 Specifications:

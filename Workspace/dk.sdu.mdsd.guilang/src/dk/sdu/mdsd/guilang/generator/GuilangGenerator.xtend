@@ -55,6 +55,11 @@ class GuilangGenerator extends AbstractGenerator {
 		for(spec : gui.main.specifications.specifications) {
 			entityOptions.put(spec.ref.name, spec.options)
 		}
+		for(template : gui.templates) {
+			for(spec : template.unit.specifications.specifications) {
+				entityOptions.put(spec.ref.name, spec.options) // Likely candidate for ensuring  template field ids are concatenated with the template id  
+			}
+		}
 	} 
 	
 	def <T extends Option> T getOption(Entity entity, Class<T> type) {

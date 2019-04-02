@@ -1,27 +1,38 @@
-regex email_validation = ""  
-main { 
+regex email_validation = ""  // Not implemented
+main {  
 	vertical { 
-		label username 
-		input emailField 
-		label passwordField
-		input passwordField
+		horizontal {
+			label username 
+			input emailField
+		}  
+		horizontal { 
+			label passwordLabel
+			input passwordField 
+		}
 		button login
-		button register  
+		button register   
 	}
-	elements {  
+	elements {
+		username { 
+			text "Username"
+		}
+		passwordLabel {
+			text "Password"
+		}
 		emailField {  
-			validate email_validation 
-		}	
+			validate email_validation // Not implemented  
+		}
 		passwordField {
-			//validate password 
+			validate password // Not implemented
 		}
 		login {
 			size "large"
 			text "Login"
-			bg-color "" 
-			//validate email_validation
-			require emailField && passwordField
+			bg-color "lightblue" 
+			require emailField && passwordField // Not implemented
 		}
-		
+		register {
+			text "Register"
+		}
 	}
 }

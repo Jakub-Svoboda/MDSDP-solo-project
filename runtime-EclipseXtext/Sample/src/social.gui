@@ -1,25 +1,27 @@
-main { 
+main {  
     vertical {
         label header
-        list Post posts
+        //list Post posts // Not implemented - challenging
+        new Post post
     } 
     elements { 
         header {
-            text "MDSDBook"
+        	text-size 36px
+            text "MDSDBook"   
         }
     } 
 }
-
-template Post { 
+ 
+template Post {  
     vertical {
         label title
         horizontal {
             label author
-            label timestamp
+            label timestamp 
         }
         text-area content 
-        horizontal {
-            button like
+        horizontal { 
+            button like 
             button share
             button report
         }
@@ -28,7 +30,9 @@ template Post {
                 field comment
                 button submit
             } 
-            list CommentBox comments 
+            label commentsHeader
+            // list CommentBox comments // Not implemented
+            new CommentBox comments
         }
     }
     elements {
@@ -37,7 +41,8 @@ template Post {
             text "Like Post"
         }
         title {
-       	 	 
+       	 	 text "This is a post"
+       	 	 text-size 28px
         }
         share {
             size "small"
@@ -47,11 +52,16 @@ template Post {
             size "small"
             text "Report Comment"
         }
+        commentsHeader {
+        	text "Comments"
+        	text-size 22px
+        }
         comment {
-            validate not_empty
+            validate not_empty // Not implemented
         }
         submit {
-            require content
+        	text "Submit"
+            require content // Not implemented
         }
     }
 }   
@@ -62,7 +72,7 @@ template CommentBox {
         label author
         text-area comment
         label timestamp
-        horizontal {
+        horizontal { 
             button like
             button report
         }
