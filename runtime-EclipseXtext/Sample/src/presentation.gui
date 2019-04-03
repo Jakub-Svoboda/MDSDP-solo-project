@@ -1,0 +1,20 @@
+color lb = "lightblue"
+main {
+	vertical {
+		horizontal {
+			label lblName
+			input name
+		}
+		button register
+	}
+	elements {
+		lblName {
+			text "Name: "
+		}
+		register { 
+			text "Register"
+			size "medium"
+			bg-color lb
+		}
+	}
+} 
