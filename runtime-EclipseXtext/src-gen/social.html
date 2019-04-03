@@ -1,0 +1,44 @@
+<html>
+	<head>
+		<title>Social GUI</title>
+		<link rel="stylesheet" type="text/css" href="social.css" />
+	</head>
+	<body>
+		<div class="vertical">
+		<div id="header" class="label">MDSDBook</div>
+		<div id="post" class="template">
+			<div class="vertical">
+			<div id="title" class="label">This is a post</div>
+			<div class="horizontal">
+			<div id="author" class="label"></div>
+			<div id="timestamp" class="label"></div>
+			</div>
+			<textarea cols="40" rows="5" id="content" class="text-area"></textarea>
+			<div class="horizontal">
+			<input type="button" id="like" class="button small" value="Like Comment"></input>
+			<input type="button" id="share" class="button small" value="Share Post"></input>
+			<input type="button" id="report" class="button small" value="Report Comment"></input>
+			</div>
+			<div class="vertical">
+			<div class="horizontal">
+			<input type="text" id="comment" class="input"></input>
+			<input type="button" id="submit" class="button medium" value="Submit"></input>
+			</div>
+			<div id="commentsHeader" class="label">Comments</div>
+			<div id="comments" class="template">
+				<div class="vertical">
+				<div id="author" class="label"></div>
+				<textarea cols="40" rows="5" id="comment" class="text-area"></textarea>
+				<div id="timestamp" class="label"></div>
+				<div class="horizontal">
+				<input type="button" id="like" class="button small" value="Like Comment"></input>
+				<input type="button" id="report" class="button small" value="Report Comment"></input>
+				</div>
+				</div>
+			</div>
+			</div>
+			</div>
+		</div>
+		</div>
+	</body>
+</html>

@@ -58,11 +58,11 @@ Specification:
 Option:
 	{DimOption} (key='dim' | key='dimensions') (width=INT'x'height=INT | ('w'| 'width') width=INT  ('h'| 'height') height=INT) |
 	{SizeOption} key='size' value=STRING |
-    {BackgroundColor} key='bg-color' (color=STRING | var=[ColorVariable]) |
-	{TextColor} key='text-color' (color=STRING | var=[ColorVariable]) |
+    {BackgroundColor} key='bg-color' (color=STRING | ref=[ColorVariable]) |
+	{TextColor} key='text-color' (color=STRING | ref=[ColorVariable]) |
 	{TextSize} key='text-size' value=INT unit=('px' | '%') |
     {TextValue} key='text' value=STRING |
-    {TextValidate} key='validate' (value=RegexValidate | var=[RegexVariable] | preset=PresetTextValidate) |
+    {TextValidate} key='validate' (value=RegexValidate | ref=[RegexVariable] | preset=PresetTextValidate) |
     {CheckboxValidate} key='validate' (value='is-checked' | value='is-unchecked') |
     {RequireElements} key='require' req=Require
 ;
