@@ -35,3 +35,4 @@ hs_err_pid*
 /Workspace/**/test-bin/**
 Workspace/dk\.sdu\.mdsd\.guilang/model/generated/
 /runtime-EclipseXtext/src-gen/
+/runtime-EclipseXtext/Sample/src-gen/
