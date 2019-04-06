@@ -1,3 +1,4 @@
+debug
 regex email_validation = ""  // Not implemented
 main {  
 	vertical { 

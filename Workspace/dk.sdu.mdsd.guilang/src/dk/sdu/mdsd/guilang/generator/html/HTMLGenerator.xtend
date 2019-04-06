@@ -30,7 +30,10 @@ class HTMLGenerator extends GuilangGenerator implements ILanguageGenerator {
 	
 	override generate() {
 		fsa.generateFile(title + '.html', generateHTML())
-		css.generate()
+		if (gui.debug === false)
+		{
+			css.generate()			
+		}
 	}
 	
 	def generateHTML() {
@@ -38,7 +41,11 @@ class HTMLGenerator extends GuilangGenerator implements ILanguageGenerator {
 		<html>
 			<head>
 				<title>«title.toFirstUpper» GUI</title>
+				«IF gui.debug === false»
 				<link rel="stylesheet" type="text/css" href="«title».css" />
+				«ELSE»
+				<style>«css.generateCSS»</style>
+				«ENDIF»
 			</head>
 			<body>
 				«gui.main.layout.generate»

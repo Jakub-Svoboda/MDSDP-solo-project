@@ -3,9 +3,14 @@ grammar dk.sdu.mdsd.guilang.Guilang with org.eclipse.xtext.common.Terminals
 generate guilang "http://www.sdu.dk/mdsd/guilang/Guilang"
 
 GUI:
+	debug?=Debug?
 	vars+=Variable*
 	main=Main
 	templates+=Template*
+;
+
+Debug:
+	'debug'
 ;
 
 Main returns Unit:
