@@ -14,6 +14,7 @@ import org.eclipse.xtext.Keyword
 import org.eclipse.xtext.RuleCall
 import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext
 import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor
+import org.eclipse.xtext.Assignment
 
 /**
  * See https://www.eclipse.org/Xtext/documentation/304_ide_concepts.html#content-assist
@@ -35,13 +36,24 @@ class GuilangProposalProvider extends AbstractGuilangProposalProvider {
 //		super.complete_Specification(model, ruleCall, context, acceptor)
 //	}
 	
-	// Filter out default suggestions
+	// Filter out default suggestions // Currently not being triggered for Specifications proposals. Both child and parent objects do trigger.
 	override completeKeyword(Keyword keyword, ContentAssistContext contentAssistContext, ICompletionProposalAcceptor acceptor) {
+		println(contentAssistContext.currentModel)
 		switch(contentAssistContext.currentModel) {
-			case SpecificationImpl: return
-			case SpecificationsImpl: return
+			case SpecificationImpl: {println("Specification") return}
+			case SpecificationsImpl: {println("Specifications") return}
 			default: super.completeKeyword(keyword, contentAssistContext, acceptor)
 		}
+	}
+	
+	override completeSpecifications_Specifications(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		println("Specifications specifications")
+		super.completeSpecifications_Specifications(model, assignment, context, acceptor)
+	}
+	
+	override complete_Specifications(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		println("Specifications")
+		super.complete_Specifications(model, ruleCall, context, acceptor)
 	}
 	
 	// Add custom suggestions (complete_TheThingYouWant)
@@ -55,10 +67,13 @@ class GuilangProposalProvider extends AbstractGuilangProposalProvider {
 		}
 	}
 	
+	// This adds all nested entities to the proposals, but the default ones are still listed (including from other files)
 	override complete_Specification(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
-		if(!(model instanceof SpecificationsImpl)) return;
+		println("Specification")
+		if(!(model instanceof SpecificationsImpl)) return; 
 		var unit = model.eContainer as Unit
 		val entities = getEntities(unit.layout).filter[e | e.name !== null]
+		
 		for(e : entities) {
 			acceptor.accept(createCompletionProposal(e.name, context))
 		}
