@@ -42,7 +42,6 @@ class GuilangProposalProvider extends AbstractGuilangProposalProvider {
 	override complete_Option(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
 		if(!(model instanceof SpecificationImpl)) return;
 		var spec = model as SpecificationImpl
-		println(spec.ref.class)
 		var String[] options = AvailableSpecifications.instance.getSpecifications(spec.ref.class).keys
 		
 		for(o : options) {

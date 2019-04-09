@@ -1,0 +1,23 @@
+debug
+main {
+	vertical a {
+		button b
+		horizontal d {
+			button c 
+		}  
+	}
+	elements { 
+		a {
+			
+		}
+		b {
+			
+		}
+		c { 
+			
+		}
+		d {
+			
+		}
+	}
+}

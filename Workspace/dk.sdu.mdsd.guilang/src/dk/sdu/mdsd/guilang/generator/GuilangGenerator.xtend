@@ -52,8 +52,12 @@ class GuilangGenerator extends AbstractGenerator {
 	
 	def populateEntityOptions() {
 		entityOptions = new HashMap
-		for(spec : gui.main.specifications.specifications) {
-			entityOptions.put(spec.ref.name, spec.options)
+		
+		if(gui.main.specifications !== null){
+			for(spec : gui.main.specifications.specifications) {
+				entityOptions.put(spec.ref.name, spec.options)
+			}
+		
 		}
 		for(template : gui.templates) {
 			for(spec : template.unit.specifications.specifications) {
