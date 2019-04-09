@@ -3,8 +3,12 @@
  */
 package dk.sdu.mdsd.guilang.ui.contentassist
 
+import com.google.inject.Inject
 import dk.sdu.mdsd.guilang.AvailableSpecifications
+import dk.sdu.mdsd.guilang.GuilangModelUtils
+import dk.sdu.mdsd.guilang.guilang.Unit
 import dk.sdu.mdsd.guilang.guilang.impl.SpecificationImpl
+import dk.sdu.mdsd.guilang.guilang.impl.SpecificationsImpl
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtext.Keyword
 import org.eclipse.xtext.RuleCall
@@ -19,6 +23,7 @@ import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor
  */
 class GuilangProposalProvider extends AbstractGuilangProposalProvider {
 	
+	@Inject extension GuilangModelUtils
 	//@Inject extension GuilangGrammarAccess
 	
 //	override complete_Element(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
@@ -33,19 +38,29 @@ class GuilangProposalProvider extends AbstractGuilangProposalProvider {
 	// Filter out default suggestions
 	override completeKeyword(Keyword keyword, ContentAssistContext contentAssistContext, ICompletionProposalAcceptor acceptor) {
 		switch(contentAssistContext.currentModel) {
-			SpecificationImpl: return
+			case SpecificationImpl: return
+			case SpecificationsImpl: return
 			default: super.completeKeyword(keyword, contentAssistContext, acceptor)
 		}
 	}
 	
 	// Add custom suggestions (complete_TheThingYouWant)
 	override complete_Option(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
-		if(!(model instanceof SpecificationImpl)) return;
+		if(!(model instanceof SpecificationImpl)) return
 		var spec = model as SpecificationImpl
 		var String[] options = AvailableSpecifications.instance.getSpecifications(spec.ref.class).keys
 		
 		for(o : options) {
 			acceptor.accept(createCompletionProposal(o, context))
+		}
+	}
+	
+	override complete_Specification(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		if(!(model instanceof SpecificationsImpl)) return;
+		var unit = model.eContainer as Unit
+		val entities = getEntities(unit.layout).filter[e | e.name !== null]
+		for(e : entities) {
+			acceptor.accept(createCompletionProposal(e.name, context))
 		}
 	}
 }

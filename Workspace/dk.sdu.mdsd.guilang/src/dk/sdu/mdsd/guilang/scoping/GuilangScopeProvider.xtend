@@ -3,12 +3,10 @@
  */
 package dk.sdu.mdsd.guilang.scoping
 
-import dk.sdu.mdsd.guilang.guilang.Entity
-import dk.sdu.mdsd.guilang.guilang.Layout
+import com.google.inject.Inject
+import dk.sdu.mdsd.guilang.GuilangModelUtils
 import dk.sdu.mdsd.guilang.guilang.Specification
 import dk.sdu.mdsd.guilang.guilang.Unit
-import java.util.ArrayList
-import java.util.List
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EReference
 import org.eclipse.xtext.scoping.IScope
@@ -21,6 +19,8 @@ import org.eclipse.xtext.scoping.Scopes
  * on how and when to use it.
  */
 class GuilangScopeProvider extends AbstractGuilangScopeProvider {
+	
+	@Inject extension GuilangModelUtils
 	
 	override IScope getScope(EObject context, EReference reference) {
 		if(context instanceof Specification){
@@ -38,17 +38,6 @@ class GuilangScopeProvider extends AbstractGuilangScopeProvider {
 		return Scopes.scopeFor(entities) 
 	}
 	
-	def private List<Entity> getEntities(Layout layout) {
-		var list = new ArrayList<Entity>()
-		
-		list.add(layout)
-		for(e : layout.entities) {
-			if(e instanceof Layout) 
-				list.addAll(getEntities(e))
-			else 
-				list.add(e)
-		}
-		return list
-	}
+	
 	
 }
