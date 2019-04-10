@@ -45,7 +45,7 @@ Element: (
 		{Input} key=('field' | 'input') | 
 		{Checkbox} key=('chk' | 'checkbox') |
 		{TextArea} key=('text-area') |
-		{TemplateInstance} key='new' ref=[Template] |
+		{TemplateInstance} (key?='new')? ref=[Template] |
 		{List} key='list' ref=[Template]
 	) name=ID// ('[' inlineOptions+=Option (';' inlineOptions+=Option)* ']')? // leaving inline options for now
 ;
