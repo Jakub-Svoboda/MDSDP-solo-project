@@ -38,21 +38,18 @@ class GuilangProposalProvider extends AbstractGuilangProposalProvider {
 	
 	// Filter out default suggestions // Currently not being triggered for Specifications proposals. Both child and parent objects do trigger.
 	override completeKeyword(Keyword keyword, ContentAssistContext contentAssistContext, ICompletionProposalAcceptor acceptor) {
-		println(contentAssistContext.currentModel)
 		switch(contentAssistContext.currentModel) {
-			case SpecificationImpl: {println("Specification") return}
-			case SpecificationsImpl: {println("Specifications") return}
+			case SpecificationImpl: return
+			case SpecificationsImpl: return
 			default: super.completeKeyword(keyword, contentAssistContext, acceptor)
 		}
 	}
 	
 	override completeSpecifications_Specifications(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
-		println("Specifications specifications")
 		super.completeSpecifications_Specifications(model, assignment, context, acceptor)
 	}
 	
 	override complete_Specifications(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
-		println("Specifications")
 		super.complete_Specifications(model, ruleCall, context, acceptor)
 	}
 	
