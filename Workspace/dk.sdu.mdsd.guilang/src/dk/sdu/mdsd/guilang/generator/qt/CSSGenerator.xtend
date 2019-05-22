@@ -1,4 +1,4 @@
-package dk.sdu.mdsd.guilang.generator.html
+package dk.sdu.mdsd.guilang.generator.qt
 
 import dk.sdu.mdsd.guilang.generator.GuilangGenerator
 import dk.sdu.mdsd.guilang.generator.ILanguageGenerator
@@ -79,38 +79,37 @@ class CSSGenerator extends GuilangGenerator implements ILanguageGenerator {
 	}
 
 	def generateDefaults() {
-		'''
-			body {
-				display: flex;
-				bjustify-content: center;
+		''' 
+			.QWidget {
+				
 			}
-			.vertical {
+			.QVBoxLayout {
 				display: flex;
 				flex-direction: column;
 				width: fit-content;
 				justify-content: center;
 			}
-			.horizontal {
+			.QHBoxLayout {
 				display: flex;
 				flex-direction: row;
 				width: fit-content;
 				justify-content: center;
 			}
-			.button {
+			.QPushButton {
 				text-align: center;
 				border: none;
 				margin: 2px;
 			}
-			.label {
+			.QLabel {
 				margin-right: 10px;
 			}
-			.input {
+			.QLineEdit{
 				margin: 2px;
 			}
-			.checkbox {
+			.QCheckBox {
 				
 			}
-			.text-area {
+			.QTextArea {
 				margin: 2px;
 			}
 			.template {

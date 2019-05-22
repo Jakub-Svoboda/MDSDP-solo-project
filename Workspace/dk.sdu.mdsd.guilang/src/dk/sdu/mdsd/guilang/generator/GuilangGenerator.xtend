@@ -3,7 +3,7 @@
  */
 package dk.sdu.mdsd.guilang.generator
 
-import dk.sdu.mdsd.guilang.generator.html.HTMLGenerator
+import dk.sdu.mdsd.guilang.generator.qt.QTGenerator
 import dk.sdu.mdsd.guilang.guilang.Entity
 import dk.sdu.mdsd.guilang.guilang.GUI
 import dk.sdu.mdsd.guilang.guilang.Option
@@ -35,7 +35,7 @@ class GuilangGenerator extends AbstractGenerator {
 	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
 		initialise(resource, fsa, context)
 		
-		var ILanguageGenerator generator = new HTMLGenerator(resource, fsa, context)
+		var ILanguageGenerator generator = new QTGenerator(resource, fsa, context)
 		
 		generator.generate()
 	}

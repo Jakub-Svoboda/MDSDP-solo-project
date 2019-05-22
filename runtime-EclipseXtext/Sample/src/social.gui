@@ -8,10 +8,11 @@ main {
         header {
         	text-size 36px
             text "MDSDBook"   
+            
         }
     } 
-}
- 
+}      
+    
 template Post {  
     vertical {
         label title
@@ -39,6 +40,8 @@ template Post {
         like {
             size "small"
             text "Like Post"
+            
+            text-color "red"
         }
         title {
        	 	 text "This is a post"
@@ -59,7 +62,7 @@ template Post {
         comment {
             validate not_empty // Not implemented
         }
-        submit {
+        submit { 
         	text "Submit"
             require content // Not implemented
         }
@@ -80,7 +83,7 @@ template CommentBox {
     elements {
         author {
             text-size 14px  
-            text-color"blue" 
+            text-color "blue" 
         }
         like {
             size "small"

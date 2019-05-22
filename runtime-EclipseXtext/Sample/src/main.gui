@@ -1,35 +1,51 @@
-debug
-regex email_validation = ""  // Not implemented
-main {  
+mask email_validation = "aa@aa"   
+color lb = "lightblue"
+main {      
 	vertical { 
 		horizontal {
 			label username 
 			input emailField
+			label date
+			input datefield
 		}  
 		horizontal { 
 			label passwordLabel
 			input passwordField 
 		}
-		button login
-		button register   
-	}
-	elements {
-		username { 
-			text "Username"
+		button login 
+		button register      
+		tabs {
+			horizontal{
+				button btn1
+				button btn2
+			}
 		}
-		passwordLabel {
+	}
+	elements {  
+		date {
+			text "Date"
+		}
+		datefield {
+			validate email_validation   
+			bg-color lb                  
+		}  
+		username { 
+			text "Username"    
+			
+		}  
+		passwordLabel {     
 			text "Password"
 		}
 		emailField {  
-			validate email_validation // Not implemented  
+			validate mask = "99-99-9999"             
 		}
 		passwordField {
-			validate password // Not implemented
+			validate password // Not implemented    
 		}
 		login {
 			size "large"
 			text "Login"
-			bg-color "lightblue" 
+			bg-color "lightblue"  
 			require emailField && passwordField // Not implemented
 		}
 		register {

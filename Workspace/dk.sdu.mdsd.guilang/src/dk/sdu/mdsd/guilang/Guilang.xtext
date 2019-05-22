@@ -35,7 +35,9 @@ Entity:
 Layout:
 	(
 		{Vertical} key=('vertical' | 'vert') | 
-		{Horizontal} key=('horizontal' | 'hori')
+		{Horizontal} key=('horizontal' | 'hori') |
+		{Tabs} key=('tabs') |
+		{Tab} key=('tab')
 	) name=ID? OPEN entities+=Entity* CLOSE
 ;
 
@@ -74,11 +76,11 @@ Option:
 
 Variable:
 	{ColorVariable} 'color' name=ID '=' value=STRING |
-    {RegexVariable} 'regex' name=ID '=' value=STRING
+    {RegexVariable} 'mask' name=ID '=' value=STRING
 ;
 
 RegexValidate:
-	 'regex' '=' STRING
+	 'mask' '=' r = STRING   
 ;
 
 enum PresetTextValidate:
@@ -127,3 +129,4 @@ terminal OPEN:
 terminal CLOSE:
 	'}'
 ;
+

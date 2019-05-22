@@ -21,6 +21,10 @@ import dk.sdu.mdsd.guilang.guilang.impl.TextAreaImpl
 import dk.sdu.mdsd.guilang.guilang.impl.VerticalImpl
 import java.util.HashMap
 import java.util.Map
+import dk.sdu.mdsd.guilang.guilang.Tabs
+import dk.sdu.mdsd.guilang.guilang.Tab
+import dk.sdu.mdsd.guilang.guilang.impl.TabsImpl
+import dk.sdu.mdsd.guilang.guilang.impl.TabImpl
 
 class AvailableSpecifications {
 	static AvailableSpecifications instance
@@ -32,6 +36,8 @@ class AvailableSpecifications {
 		
 		var vertical = new EntityOptionsCollection(Vertical)
 		var horizontal = new EntityOptionsCollection(Horizontal)
+		var tabs = new EntityOptionsCollection(Tabs)
+		var tab = new EntityOptionsCollection(Tab)
 		
 		var button = new EntityOptionsCollection(Button) 
 		var label = new EntityOptionsCollection(Label) 
@@ -55,6 +61,8 @@ class AvailableSpecifications {
 		// Assign options to entities
 		vertical.add(dimensions, bgColor)
 		horizontal.add(dimensions, bgColor)		
+		tabs.add(dimensions, bgColor)
+		tab.add(dimensions, bgColor)
 		button.add(size, bgColor, textColor, textValue, require)
 		label.add(textColor, textSize, textValue)
 		input.add(textColor, textSize, textValue, textValidate, require, bgColor)
@@ -64,6 +72,8 @@ class AvailableSpecifications {
 		// Add to map
 		specifications.put(Vertical, vertical);
 		specifications.put(Horizontal, horizontal);
+		specifications.put(Tabs, tabs);
+		specifications.put(Tab, tab);
 		specifications.put(Button, button);
 		specifications.put(Label, label);
 		specifications.put(Input, input);
@@ -75,6 +85,8 @@ class AvailableSpecifications {
 		// Crude fix for Impl versions
 		specifications.put(VerticalImpl, vertical);
 		specifications.put(HorizontalImpl, horizontal);
+		specifications.put(TabsImpl, tabs);
+		specifications.put(TabImpl, tab);
 		specifications.put(ButtonImpl, button);
 		specifications.put(LabelImpl, label);
 		specifications.put(InputImpl, input);

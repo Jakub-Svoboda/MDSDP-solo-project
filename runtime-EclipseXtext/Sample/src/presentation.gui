@@ -1,3 +1,4 @@
+mask email_validation = "aa@aa"     
 color lb = "lightblue"
 main {
 	vertical {
@@ -5,16 +6,16 @@ main {
 			label lblName
 			input name
 		}
-		button register
+		button register 
 	}
-	elements {
+	elements { 
 		lblName {
-			text "Name: "
-		}
+			text "Name: "   
+		}    
 		register { 
 			text "Register"
 			size "medium"
-			bg-color lb
+			bg-color lb 
 		}
 	}
 } 

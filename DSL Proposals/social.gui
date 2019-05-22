@@ -8,7 +8,7 @@ main {
             text="MDSDBook"
         }
     }
-}
+} 
 
 template Post {
     vertical {

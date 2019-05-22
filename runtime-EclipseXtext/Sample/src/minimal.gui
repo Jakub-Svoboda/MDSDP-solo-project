@@ -1,23 +1,18 @@
 debug
 main {
-	vertical a {
+	vertical verticalLayout {
+		text-area a
 		button b
-		horizontal d {
-			button c 
-		}  
 	}
 	elements { 
+		verticalLayout {
+			
+		}
 		a {
-			
-		}
+			text "a"	        
+		}      
 		b {
-			
+			     
 		}
-		c { 
-			
-		}
-		d {
-			
-		}
-	}
-}
+	} 
+}         

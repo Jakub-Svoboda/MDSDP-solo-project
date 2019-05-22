@@ -1,8 +1,50 @@
+mask date_ver = "99-99-9999"
+mask ip_ver = "000.000.000.000"
+mask mac_ver = "HH:HH:HH:HH:HH:HH"
+
 main{
-	vertical { 
-		
-	}
+	vertical{
+		tabs{
+ 	     	tab { 
+ 	     		vertical{
+ 	     			label lbl1
+ 	     			input input1
+ 	     			label lbl2
+ 	     			input input2
+ 	     			label lbl3
+ 	     			input input3
+ 	     		} 
+ 	     	}
+ 	     	tab {
+ 	     		vertical{
+ 	     			button btn1     
+ 	     		}
+ 	        } 
+		}
+	}  
+
 	elements{
-		
-	}
-}
+   		btn1 {
+   			text "1" 
+   			bg-color "red"
+   		}
+   		lbl1{
+   			text "Date (DD-MM-YYYY):"
+   		}
+   		lbl2{
+   			text "IP (III.III.III.III):" 
+   		}
+   		lbl3{
+   			text "MAC (HH:HH:HH:HH:HH:HH): "         
+   		} 
+   		input1{ 
+   			validate date_ver 
+   		}
+   		input2{
+   			validate ip_ver
+   		} 
+   		input3{
+   			validate mac_ver 
+   		}
+	}    
+} 

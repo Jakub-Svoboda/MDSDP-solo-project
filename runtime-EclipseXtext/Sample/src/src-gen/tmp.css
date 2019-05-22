@@ -1,0 +1,62 @@
+.QWidget {
+	
+}
+.QVBoxLayout {
+	display: flex;
+	flex-direction: column;
+	width: fit-content;
+	justify-content: center;
+}
+.QHBoxLayout {
+	display: flex;
+	flex-direction: row;
+	width: fit-content;
+	justify-content: center;
+}
+.QPushButton {
+	text-align: center;
+	border: none;
+	margin: 2px;
+}
+.QLabel {
+	margin-right: 10px;
+}
+.QLineEdit{
+	margin: 2px;
+}
+.QCheckBox {
+	
+}
+.QTextArea {
+	margin: 2px;
+}
+.template {
+	
+}
+.list {
+	
+}
+.small {
+	height: 20px;
+}
+.medium {
+	height: 40px;
+}
+.large {
+	height: 60px;
+}
+#input3 {
+}
+#input2 {
+}
+#input1 {
+}
+#lbl1 {
+}
+#btn1 {
+	background-color: red;
+}
+#lbl2 {
+}
+#lbl3 {
+}
