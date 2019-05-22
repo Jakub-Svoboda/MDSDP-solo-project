@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Ideas
 ===
 ## Syntax
@@ -34,3 +35,6 @@ Ideas
   - password
   - number
   - date
+=======
+# MDSDP-solo-project
+>>>>>>> afe6a82282c1ddabab1c3a78bc7971a63651eee4
